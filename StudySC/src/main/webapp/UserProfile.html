@@ -29,8 +29,8 @@
 			    <!-- Hidden form to edit name -->
 			    <div id="editNameForm" style="display:none;">
 			        <input type="text" id="nameInput" value="USER_NAME">
-			        <button onclick="saveName()">Save</button>
-			        <button onclick="cancelNameEdit()">Cancel</button>
+			        <button class="save-button" onclick="saveName()">S</button>
+			        <button class="cancel-button" onclick="cancelNameEdit()">C</button>
 			    </div>
 				
 			</td>
@@ -43,8 +43,8 @@
 			    <!-- Hidden form to edit name -->
 			    <div id="editPhoneForm" style="display:none;">
 			        <input type="text" id="phoneInput" value="XXX-XXX-XXXX">
-			        <button onclick="savePhone()">Save</button>
-			        <button onclick="cancelPhoneEdit()">Cancel</button>
+			        <button class="save-button" onclick="savePhone()">S</button>
+			        <button class="cancel-button" onclick="cancelPhoneEdit()">C</button>
 			    </div>
 				
 			</td>
@@ -52,15 +52,15 @@
 			    <div id="passDisplay">
 			        <!-- Initially showing asterisks -->
 			        <span id="passSpan">*********</span>
-			        <button onclick="editPass()">Edit</button>
+			        <button onclick="editPass()">E</button>
 			    </div>
 			
 			    <!-- Hidden form to edit name -->
 			    <div id="editPassForm" style="display:none;">
 			        <!-- The real name is stored here but not displayed -->
 			        <input type="text" id="passInput" value="USER_PASSWORD";>
-			        <button onclick="savePass()">Save</button>
-			        <button onclick="cancelPassEdit()">Cancel</button>
+			        <button class="save-button" onclick="savePass()">S</button>
+			        <button class="cancel-button" onclick="cancelPassEdit()">C</button>
 			    </div>
 			</td>
             <td>
@@ -94,13 +94,13 @@
         <button onclick="addGroup()">+</button>
 	    </div>
 		
-		    <table id="groupsTable">
-		        <tr>
-		            <th>Group Name</th>
-		            <th>Actions</th>
-		        </tr>
-		        <!-- Group rows will be added here -->
-		    </table>
+	    <table id="groupsTable">
+	        <tr>
+	            <th>Group Name</th>
+	            <th>Actions</th>
+	        </tr>
+	        <!-- Group rows will be added here -->
+	    </table>
 		
 		<script src="UserProfile.js"></script>
 	

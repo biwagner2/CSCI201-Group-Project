@@ -90,7 +90,7 @@ function addGroup() {
     var cell2 = row.insertCell(1);
 
     cell1.innerHTML = "New Study Group"; // Placeholder text for new group
-    cell2.innerHTML = "<button onclick='chatGroup(this)'>Chat</button> <button onclick='editGroup(this)'>Edit</button> <button onclick='deleteGroup(this)'>Delete</button>";
+    cell2.innerHTML = "<button onclick='editGroup(this)'>Edit</button> <button onclick='deleteGroup(this)'>Delete</button>";
 }
 
 function chatGroup(btn) {
