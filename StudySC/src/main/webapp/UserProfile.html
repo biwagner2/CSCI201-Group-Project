@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+<meta charset="UTF-8">
+<link rel="stylesheet" href="UserProfile.css">
+	<div class="topnav">
+	  <a class="active" href="#home">Home</a>
+	  <a href="#chat">Chat</a>
+	  <a href="#user">User</a>
+	</div>
+
+</head>
+
+
+
+<body>
+	    <table>
+        <tr>
+            <td>
+				<div id="emailDisplay">
+		        <span id="emailSpan">USER_EMAIL</span>
+			    </div>
+			</td>
+            <td>
+				<div id="nameDisplay">
+		        <span id="nameSpan">USER_NAME</span>
+		        <button onclick="editName()">E</button>
+			    </div>
+			
+			    <!-- Hidden form to edit name -->
+			    <div id="editNameForm" style="display:none;">
+			        <input type="text" id="nameInput" value="USER_NAME">
+			        <button onclick="saveName()">Save</button>
+			        <button onclick="cancelNameEdit()">Cancel</button>
+			    </div>
+				
+			</td>
+            <td>
+				<div id="phoneDisplay">
+		        <span id="phoneSpan">XXX-XXX-XXXX</span>
+		        <button onclick="editPhone()">E</button>
+			    </div>
+			
+			    <!-- Hidden form to edit name -->
+			    <div id="editPhoneForm" style="display:none;">
+			        <input type="text" id="phoneInput" value="XXX-XXX-XXXX">
+			        <button onclick="savePhone()">Save</button>
+			        <button onclick="cancelPhoneEdit()">Cancel</button>
+			    </div>
+				
+			</td>
+            <td>
+			    <div id="passDisplay">
+			        <!-- Initially showing asterisks -->
+			        <span id="passSpan">*********</span>
+			        <button onclick="editPass()">Edit</button>
+			    </div>
+			
+			    <!-- Hidden form to edit name -->
+			    <div id="editPassForm" style="display:none;">
+			        <!-- The real name is stored here but not displayed -->
+			        <input type="text" id="passInput" value="USER_PASSWORD";>
+			        <button onclick="savePass()">Save</button>
+			        <button onclick="cancelPassEdit()">Cancel</button>
+			    </div>
+			</td>
+            <td>
+				<div id="deleteAccountDisplay">
+		        <span id="deleteAccountSpan">Delete Account</span>
+		        <button onclick="deleteAccount()">X</button>
+			    </div>
+				
+			</td>
+        </tr>
+    	</table>
+    	
+    	<div class="schedule-header">
+        <span>My Schedule</span>
+        <button onclick="addCourse()">+</button>
+	    </div>
+	
+	    <table id="scheduleTable">
+	        <tr>
+	            <th>Course Name</th>
+	            <th>Actions</th>
+	        </tr>
+	        <!-- Course rows will be added here -->
+	    </table>
+	
+		<script src="UserProfile.js"></script>
+	
+	
+	
+
+</body>
+</html>
