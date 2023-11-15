@@ -4,10 +4,32 @@
 <meta charset="UTF-8">
 <title>Create Account</title>
 	<link rel="stylesheet" type="text/css" href="CreateAccount.css"/> 
-	
 </head>
 <body>
-	<div>Please enter your full name</div>
-	<h1>My name is Brian this is a test</h1>
+	<img src="USC_Logo.png" alt="USC Logo" width="300" height="150" class="uscLogo">
+	
+	<div class="centerBox">
+		<h1 class="pageTitle">Create your account</h1>
+		<form>
+			<label for="fullName">Full Name	</label>
+			<input type="text" id="fullName" name="fullName"><br><br>
+			
+			<label for="uscEmail">USC Email </label>
+			<input type="text" id="uscEmail" name="uscEmail"><br>
+			
+		<a class="verifyLink" href="https://mail.google.com/">Send Verification Code</a><br><br>
+		
+			<label for="verifyCode">Verification Code</label>
+			<input type="text" id="verifyCode" name="verifyCode"><br><br>
+			
+			<label for="password">Password</label>
+			<input type="text" id="password" name="password"><br><br>
+			
+			<input type="submit" value="Register">
+		</form>
+	</div>
+	
+	
+	
 </body>
 </html>
