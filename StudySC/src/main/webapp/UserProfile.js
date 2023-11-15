@@ -82,3 +82,36 @@ function deleteCourse(btn) {
         row.parentNode.removeChild(row);
     }
 }
+
+function addGroup() {
+    var table = document.getElementById("groupsTable");
+    var row = table.insertRow(-1); // Inserts a row at the end of the table
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+
+    cell1.innerHTML = "New Study Group"; // Placeholder text for new group
+    cell2.innerHTML = "<button onclick='chatGroup(this)'>Chat</button> <button onclick='editGroup(this)'>Edit</button> <button onclick='deleteGroup(this)'>Delete</button>";
+}
+
+function chatGroup(btn) {
+    var row = btn.parentNode.parentNode;
+    var groupName = row.cells[0].innerHTML;
+    alert("Chat functionality not implemented. Group: " + groupName);
+    // Implement chat functionality or redirect to chat page
+}
+
+function editGroup(btn) {
+    var row = btn.parentNode.parentNode;
+    var groupName = prompt("Edit the goup name:", row.cells[0].innerHTML);
+    if (groupName) {
+        row.cells[0].innerHTML = groupName;
+    }
+}
+
+function deleteGroup(btn) {
+    if (confirm("Are you sure you want to delete this group?")) {
+        var row = btn.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+    }
+}
+
