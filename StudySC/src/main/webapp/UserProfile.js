@@ -66,6 +66,7 @@ function addCourse() {
 
     cell1.innerHTML = "New Course"; // Placeholder text for new course
     cell2.innerHTML = "<button onclick='editCourse(this)'>Edit</button> <button onclick='deleteCourse(this)'>Delete</button>";
+    window.location.href = 'NewCourse.html';
 }
 
 function editCourse(btn) {
@@ -90,7 +91,8 @@ function addGroup() {
     var cell2 = row.insertCell(1);
 
     cell1.innerHTML = "New Study Group"; // Placeholder text for new group
-    cell2.innerHTML = "<button onclick='chatGroup(this)'>Chat</button> <button onclick='editGroup(this)'>Edit</button> <button onclick='deleteGroup(this)'>Delete</button>";
+    cell2.innerHTML = "<button onclick='editGroup(this)'>Edit</button> <button onclick='deleteGroup(this)'>Delete</button>";
+    window.location.href = 'NewStudyGroup.html';
 }
 
 function chatGroup(btn) {
