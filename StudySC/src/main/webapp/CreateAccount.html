@@ -9,27 +9,40 @@
 	<img src="USC_Logo.png" alt="USC Logo" width="300" height="150" class="uscLogo">
 	
 	<div class="centerBox">
-		<h1 class="pageTitle">Create your account</h1>
-		<form>
-			<label for="fullName">Full Name	</label>
-			<input type="text" id="fullName" name="fullName"><br><br>
-			
-			<label for="uscEmail">USC Email </label>
-			<input type="text" id="uscEmail" name="uscEmail"><br>
-			
-		<a class="verifyLink" href="https://mail.google.com/">Send Verification Code</a><br><br>
-		
-			<label for="verifyCode">Verification Code</label>
-			<input type="text" id="verifyCode" name="verifyCode"><br><br>
-			
-			<label for="password">Password</label>
-			<input type="text" id="password" name="password"><br><br>
-			
-			<input type="submit" value="Register">
-		</form>
+	        <h1 class="pageTitle">Create your account</h1>
+	        
+			<form class="upperForm">
+				
+				<div class="formRow">
+					<div class="leftColumn">
+						<label for="fullName">Full Name</label>
+					</div>
+					<div class="rightColumn">
+						<input type="text" id="fullName" name="fullName" required>
+					</div>
+				</div>
+				<br>
+				<div class="formRow">
+					<div class="leftColumn">
+						 <label for="uscEmail">USC Email</label>
+					</div>
+					<div class="rightColumn">
+						<input type="text" id="uscEmail" name="uscEmail" placeholder="@usc.edu" required>
+					</div>
+					<br>
+				</div>
+				<div class="formRow">
+					<div class="leftColumn">
+						 <label for="password">Password</label>
+					</div>
+					<div class="rightColumn">
+						 <input type="password" id="password" name="password" minlength="8" placeholder="8 characters minimum" required>
+					</div>
+				</div>
+				<br>
+				<input class="registerButton" type="submit" value="Register">
+			</form>
+			<br>
 	</div>
-	
-	
-	
 </body>
 </html>
