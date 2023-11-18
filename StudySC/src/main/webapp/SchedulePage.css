@@ -48,24 +48,31 @@
         background: #fff;
         box-shadow: 0 0 10px rgba(0,0,0,0.1);
       }
+     
+      .course:last-child {
+        border-bottom: none;
+      }
+     
       .course {
         border-bottom: 1px solid #eee;
         padding: 10px;
         background: #fdfdfd;
         margin:20px;
       }
-      .course:last-child {
-        border-bottom: none;
-      }
-      .course h2 {
-        margin: 0;
-        color: #333;
-        font-size: 18px;
-        padding: 12px;
-        background-color: #e66268;
-        border-radius: 10px;
 
-      }
+    .courseTitle {
+        padding: 5px;
+    }
+
+    .courseTitle h2 {
+      margin: 0;
+      color: #333;
+      font-size: 18px;
+      padding: 12px;
+      background-color: #e66268;
+      border-radius: 10px;
+    }
+
       .details {
         margin-top: 5px;
         color: #666;
