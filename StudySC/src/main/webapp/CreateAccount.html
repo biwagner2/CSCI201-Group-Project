@@ -4,6 +4,22 @@
 <meta charset="UTF-8">
 <title>Create Account</title>
 	<link rel="stylesheet" type="text/css" href="CreateAccount.css"/> 
+	
+	<script>
+		function validateEmail()
+		{
+			var email = document.getElementById('uscEmail').value;
+			if(email.endsWith("@usc.edu"))
+			{
+				return true;
+			}
+			else
+				alert("Email must end with @usc.edu");
+				return false;
+			
+		}
+	</script>
+	
 </head>
 <body>
 	<img src="USC_Logo.png" alt="USC Logo" width="300" height="150" class="uscLogo">
@@ -11,7 +27,7 @@
 	<div class="centerBox">
 	        <h1 class="pageTitle">Create your account</h1>
 	        
-			<form class="upperForm">
+			<form class="upperForm" onsubmit="return validateEmail()">
 				
 				<div class="formRow">
 					<div class="leftColumn">
