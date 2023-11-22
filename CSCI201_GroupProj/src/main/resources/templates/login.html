@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>StudySC Login</title>
+<style>
+	body {
+		background-color: rgb(212, 35, 35);
+	}
+	
+    #pic1 {
+        width: 300px;
+        border-radius: 15px;
+        display: block;
+        margin: 20px auto; /* Center the image horizontally with some spacing */
+    }
+
+    #picDiv {
+        padding-top: 100px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-bottom: 20px; 
+    }
+    
+    .form-row {
+		margin: 20px 0px;
+		display: flex;
+		color: white;
+		font-size: 1.0em;
+	}
+
+	.left-column {
+		width: 100px;
+		margin-left: 60px;
+		margin-top: 15px;
+		font-family: 'Mochiy Pop P One', sans-serif;
+	}
+	
+	#SignDiv {
+		width: 400px;
+		padding-top: 20px;
+		background-color: rgb(152, 27, 29);
+		height: 250px;
+		margin-left: auto;
+		margin-right: auto;
+		border-radius: 15px;
+	}
+	
+	#SubmitButton {
+		margin-top: 10px;
+		margin-left:300px;
+		height: 40px;
+		border-radius: 5px;
+		background-color:  rgb(194, 55, 45);
+		color:white;
+	}
+	
+	#submitArea {
+		padding-top: 10px;
+		margin-left: 60px;
+	}
+	
+	#submitArea a:hover {
+		color: white;
+    }
+	
+	#submitArea a {
+		color: orange;
+		font-family: 'Mochiy Pop P One', sans-serif;
+	}
+	
+	#name-id {
+		width: 160px;
+	}
+	
+	#email-id {
+		width: 160px;
+	}
+	
+</style>
+
+
+</head>
+<body>
+	<div id="picDiv">
+		<img id="pic1"src="USC_Logo.png" alt="USC_Logo"> 
+	</div>
+	
+	<form action="SchedulePage.html">
+	<div id="SignDiv">
+		<div class="form-row">
+			<div class="left-column">
+				<label for="name-id">USC Email</label>
+			</div>
+			<input type="text" id="name-id" placeholder="ttrojan@usc.edu" required>
+		</div> <!-- form-wor-->
+
+		<div class="form-row">
+			<div class="left-column">
+				<label for="email-id">Password</label></div>
+				<input type="email" id="email-id" placeholder="trojan1880" required>
+			</div>
+			
+			<div id="submitArea">
+				<a href="SchedulePage.html">Guest Mode</a>
+				<a>|</a>
+				<a href="CreateAccount.html">Sign Up</a>
+			</div>
+			
+			<button id="SubmitButton">Sign In</button>
+	</div>
+	</form>
+		
+	</div>  <!-- Sign Div -->
+	
+</body>
+</html>

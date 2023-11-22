@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Create Account</title>
+	<link rel="stylesheet" type="text/css" href="CreateAccount.css"/> 
+</head>
+<body>
+	<img src="USC_Logo.png" alt="USC Logo" width="300" height="150" class="uscLogo">
+	
+	<div class="centerBox">
+	        <h1 class="pageTitle">Create your account</h1>
+	        
+			<form action = "register" method = "post">
+				
+				<div class="formRow">
+					<div class="leftColumn">
+						<label for="fullName">Full Name</label>
+					</div>
+					<div class="rightColumn">
+						<input type="text" id="fullName" name="fullName" required>
+					</div>
+				</div>
+				<br>
+				<div class="formRow">
+					<div class="leftColumn">
+						 <label for="uscEmail">USC Email</label>
+					</div>
+					<div class="rightColumn">
+						<input type="text" id="uscEmail" name="uscEmail" placeholder="@usc.edu" required>
+					</div>
+					<br>
+				</div>
+				<div class="formRow">
+					<div class="leftColumn">
+						 <label for="password">Password</label>
+					</div>
+					<div class="rightColumn">
+						 <input type="password" id="password" name="password" minlength="8" placeholder="8 characters minimum" required>
+					</div>
+				</div>
+				<br>
+				<button type = "submit"> Submit </button>
+			</form>
+			<br>
+	</div>
+</body>
+</html>
