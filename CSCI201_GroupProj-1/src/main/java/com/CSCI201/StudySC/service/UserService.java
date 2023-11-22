@@ -14,7 +14,7 @@ public class UserService {
         Connection conn = null;
         PreparedStatement st = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/StudySC?user=root&password=CC9golfalex!");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/StudySC?user=root&password=Bwagner2003.");
             st = conn.prepareStatement("INSERT INTO User (name, password, email) VALUES (?, ?, ?)");
             st.setString(1, fullName);
             st.setString(2, password);
@@ -35,4 +35,5 @@ public class UserService {
             }
         }
     }
+    
 }
