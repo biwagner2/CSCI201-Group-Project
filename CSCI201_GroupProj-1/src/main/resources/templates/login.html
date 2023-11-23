@@ -3,6 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <title>StudySC Login</title>
+
+<script>
+		function validateEmail()
+		{
+			var email = document.getElementById('email-id').value;
+			if(email.endsWith("@usc.edu"))
+			{
+				return true;
+			}
+			else
+				alert("Email must end with @usc.edu");
+				return false;
+			
+		}
+	</script>
+
+
 <style>
 	body {
 		background-color: rgb(212, 35, 35);
@@ -79,35 +96,34 @@
 	
 </style>
 
-
 </head>
 <body>
 	<div id="picDiv">
-		<img id="pic1"src="USC_Logo.png" alt="USC_Logo"> 
+		<img id="pic1" src="USC_Logo.png" alt="USC_Logo">
 	</div>
 	
-	<form action="SchedulePage.html">
+	<form onsubmit="return validateEmail()" action="/schedule" method="get">
 	<div id="SignDiv">
 		<div class="form-row">
 			<div class="left-column">
 				<label for="name-id">USC Email</label>
 			</div>
-			<input type="text" id="name-id" placeholder="ttrojan@usc.edu" required>
+			<input type="email" id="email-id" placeholder="ttrojan@usc.edu" required>
 		</div> <!-- form-wor-->
 
 		<div class="form-row">
 			<div class="left-column">
-				<label for="email-id">Password</label></div>
-				<input type="email" id="email-id" placeholder="trojan1880" required>
+				<label fodr="password">Password</label></div>
+				<input type="password" id="password" placeholder="trojan1880" required>
 			</div>
 			
 			<div id="submitArea">
-				<a href="SchedulePage.html">Guest Mode</a>
+				<a href="/scheduleGuest">Guest Mode</a>
 				<a>|</a>
-				<a href="CreateAccount.html">Sign Up</a>
+				<a href="/register">Sign Up</a>
 			</div>
 			
-			<button id="SubmitButton">Sign In</button>
+			<button type="submit" id="SubmitButton">Sign In</button>
 	</div>
 	</form>
 		

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th=“https://www.thymeLeaf.org”>
+<head>
+    
+<meta charset="UTF-8">
+<link rel="stylesheet" href="UserProfile.css">
+    <div class="topnav">
+      <a class="active" href="/schedule">Home</a>
+      <a>User</a>
+    </div>
+
+</head>
+
+
+<body>
+        <table>
+        <tr>
+            <td>
+                <div id="emailDisplay">
+                <span id="emailSpan"><h2><span th:text="${email}">{{ email }}</span></h2></span>
+                </div>
+            </td>
+            <td>
+                <div id="nameDisplay">
+                <span id="nameSpan">
+                    <h2>
+                        <span th:text="${fullname}">{{ fullname }}</span>
+                    </h2>
+                </span>
+                <button onclick="editName()">E</button>
+                </div>
+            
+                <!-- Hidden form to edit name -->
+                <div id="editNameForm" style="display:none;">
+                    <input type="text" id="nameInput" value="USER_NAME">
+                    <button class="save-button" onclick="saveName()">S</button>
+                    <button class="cancel-button" onclick="cancelNameEdit()">C</button>
+                </div>
+                
+            </td>
+            <td>
+                <div id="phoneDisplay">
+                <span id="phoneSpan">XXX-XXX-XXXX</span>
+                <button onclick="editPhone()">E</button>
+                </div>
+            
+                <!-- Hidden form to edit name -->
+                <div id="editPhoneForm" style="display:none;">
+                    <input type="text" id="phoneInput" value="XXX-XXX-XXXX">
+                    <button class="save-button" onclick="savePhone()">S</button>
+                    <button class="cancel-button" onclick="cancelPhoneEdit()">C</button>
+                </div>
+                
+            </td>
+            <td>
+                <div id="passDisplay">
+                    <!-- Initially showing asterisks -->
+                    <span id="passSpan">*********</span>
+                    <button onclick="editPass()">E</button>
+                </div>
+            
+                <!-- Hidden form to edit name -->
+                <div id="editPassForm" style="display:none;">
+                    <!-- The real name is stored here but not displayed -->
+                    <input type="text" id="passInput" value="USER_PASSWORD";>
+                    <button class="save-button" onclick="savePass()">S</button>
+                    <button class="cancel-button" onclick="cancelPassEdit()">C</button>
+                </div>
+            </td>
+            <td>
+                <div id="deleteAccountDisplay">
+                <span id="deleteAccountSpan">Delete Account</span>
+                <button onclick="deleteAccount()">X</button>
+                </div>
+                
+            </td>
+        </tr>
+        </table>
+        
+        <br></br>
+        
+        <div class="schedule-header">
+        <span>My Schedule</span>
+        <button onclick="addCourse()">+</button>
+        </div>
+    
+        <table id="scheduleTable">
+            <tr>
+                <th>Course Name</th>
+                <th>Actions</th>
+            </tr>
+            <!-- Course rows will be added here -->
+        </table>
+        
+        
+        <div class="header">
+        <span>Study Groups</span>
+        <button onclick="addGroup()">+</button>
+        </div>
+        
+        <table id="groupsTable">
+            <tr>
+                <th>Group Name</th>
+                <th>Actions</th>
+            </tr>
+            <!-- Group rows will be added here -->
+        </table>
+        
+        <script src="UserProfile.js"></script>
+    
+    
+    
+
+</body>
+</html>

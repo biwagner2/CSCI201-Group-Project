@@ -27,7 +27,7 @@
 	<div class="centerBox">
 	        <h1 class="pageTitle">Create your account</h1>
 	        
-			<form class="upperForm" onsubmit="return validateEmail()">
+			<form class="upperForm" onsubmit="return validateEmail()" action = "/userProfile" method = "post">
 				
 				<div class="formRow">
 					<div class="leftColumn">
@@ -56,9 +56,10 @@
 					</div>
 				</div>
 				<br>
-				<input class="registerButton" type="submit" value="Register">
+				<button type = "submit" class="registerButton"> Register </button>
 			</form>
 			<br>
 	</div>
 </body>
 </html>
+

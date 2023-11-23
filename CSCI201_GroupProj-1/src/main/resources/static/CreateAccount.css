@@ -34,16 +34,6 @@ body {
 	}
 
 
-.verifyButton {
-    background-color: rgb(255, 204, 0); /* Yellow background color */
-    color: white;
-    font-size: 85%;
-    padding: 0.5% 0.5%;
-    border-radius: 15px;
-    position: absolute;
-    right: 38%;
-}
-
 
 .registerButton {
     background-color: rgb(212, 35, 35);
