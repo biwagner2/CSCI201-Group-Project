@@ -102,19 +102,19 @@
 		<img id="pic1" src="USC_Logo.png" alt="USC_Logo">
 	</div>
 	
-	<form onsubmit="return validateEmail()" action="/schedule" method="get">
+	<form onsubmit="return validateEmail()" action="/login" method="post">
 	<div id="SignDiv">
 		<div class="form-row">
 			<div class="left-column">
 				<label for="name-id">USC Email</label>
 			</div>
-			<input type="email" id="email-id" placeholder="ttrojan@usc.edu" required>
+			<input type="email" id="email" placeholder="ttrojan@usc.edu" name="email" required>
 		</div> <!-- form-wor-->
 
 		<div class="form-row">
 			<div class="left-column">
-				<label fodr="password">Password</label></div>
-				<input type="password" id="password" placeholder="trojan1880" required>
+				<label for="password">Password</label></div>
+				<input type="password" id="password" placeholder="trojan1880" name="password" required>
 			</div>
 			
 			<div id="submitArea">
