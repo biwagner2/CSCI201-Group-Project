@@ -3,9 +3,29 @@ package com.CSCI201.StudySC.model;
 import java.sql.Time;
 import java.util.Date;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import lombok.Getter;
+import lombok.Setter;
+
+
+@Entity
+@Getter
+@Setter
 public class StudyGroup {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer group_id;
+	
+	@ManyToOne
+	@JoinColumn(name = "creator_email", referencedColumnName = "email")
     private User creator;
+	
     private String coursename;
     private Date meetingDate;
     private Time meetingTimeStart;

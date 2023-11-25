@@ -93,12 +93,20 @@ public class RegisterController {
    
     @PostMapping("/userProfile")
     public String userRegistration(@ModelAttribute User user, Model model) {
-    	currUser = user;
-        System.out.println(currUser.toString());
-        model.addAttribute("fullname", currUser.getFullName());
-        model.addAttribute("email", currUser.getUscEmail());
-        userService.insertNewUser(user.getFullName(), user.getPassword(), user.getUscEmail());
-        return "UserProfile";
+    	User createdUser = userService.create(user);
+    	   
+        if(createdUser == null) //If unable to create a new user because of reused entry...
+        {
+        	model.addAttribute("errorMessage", "Email is already in use. Please use a different one.");
+        	return "CreateAccount";
+        }
+        else //Proceed to next page....
+        {
+        	currUser = createdUser;
+            model.addAttribute("fullname", currUser.getFullName());
+            model.addAttribute("email", currUser.getUscEmail());
+            return "UserProfile";
+        }
     }
     
     

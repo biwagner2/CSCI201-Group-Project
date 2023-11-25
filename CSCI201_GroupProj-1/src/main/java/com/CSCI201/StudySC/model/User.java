@@ -1,19 +1,35 @@
 package com.CSCI201.StudySC.model;
 
-public class User {
-    private String fullName;
-    private String password;
-    private String uscEmail;
+import java.util.List;
 
-    // Constructor(s) go here if needed
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import lombok.Getter;
+import lombok.Setter;
+
+@Entity
+@Getter
+@Setter
+public class User {
+	
+	 @Id
+	 private String email;
+	 private String name;
+	 private String password;
+	 
+	 @OneToMany(mappedBy = "creator")
+	  private List<StudyGroup> studyGroups;
+    
 
     // Getter and setter for fullName
     public String getFullName() {
-        return fullName;
+        return name;
     }
 
     public void setFullName(String fullName) {
-        this.fullName = fullName;
+        this.name = fullName;
     }
 
     // Getter and setter for password
@@ -27,19 +43,19 @@ public class User {
 
     // Getter and setter for uscEmail
     public String getUscEmail() {
-        return uscEmail;
+        return email;
     }
 
-    public void setUscEmail(String uscEmail) {
-        this.uscEmail = uscEmail;
+    public void setUscEmail(String email) {
+        this.email = email;
     }
     
     @Override
     public String toString() {
         return "User{" +
-                "fullName='" + fullName + '\'' +
+                "fullName='" + name + '\'' +
                 ", password='" + password + '\'' +
-                ", uscEmail='" + uscEmail + '\'' +
+                ", uscEmail='" + email + '\'' +
                 '}';
     }
     
