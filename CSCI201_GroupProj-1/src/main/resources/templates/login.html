@@ -126,6 +126,8 @@
 			<button type="submit" id="SubmitButton">Sign In</button>
 	</div>
 	</form>
+	<div class="errorMessage" th:if="${errorMessage}" style="color: rgb(255, 204, 0); font-family: 'Mochiy Pop P One', sans-serif; font-size: 100%; position: absolute; left: 500px;">
+            <p th:text="${errorMessage}"></p>
 		
 	</div>  <!-- Sign Div -->
 	
