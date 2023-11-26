@@ -45,6 +45,7 @@ public class RegisterController {
             return "SchedulePage";
         } else {
             // Handle invalid login
+        	model.addAttribute("errorMessage", "Account not found. Please try a different one.");
             return "login.html";
         }
     }
