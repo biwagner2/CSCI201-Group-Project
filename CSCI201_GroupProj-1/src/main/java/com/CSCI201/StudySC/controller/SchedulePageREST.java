@@ -23,7 +23,7 @@ public class SchedulePageREST {
 
     @GetMapping("/SchedulePageServlet")
     public List<StudyGroup> doGet() {
-        List<StudyGroup> studyGroups = new ArrayList<>();
+    		List<StudyGroup> studyGroups = new ArrayList<>();
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");

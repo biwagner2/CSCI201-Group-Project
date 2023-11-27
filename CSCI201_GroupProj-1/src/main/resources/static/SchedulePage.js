@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error fetching data:', error);
         });
 });
-
+  
 
 function populateCourseContainer(studyGroups) {
     // Get the existing courses container
