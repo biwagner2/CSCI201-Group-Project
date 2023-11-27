@@ -19,7 +19,7 @@ public class SchedulePageREST {
     private static final long serialVersionUID = 1L;
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/StudySC";
     private static final String JDBC_USER = "root";
-    private static final String JDBC_PASSWORD = "password";
+    private static final String JDBC_PASSWORD = "Bwagner2003.";
 
     @GetMapping("/SchedulePageServlet")
     public List<StudyGroup> doGet() {
@@ -32,17 +32,17 @@ public class SchedulePageREST {
             return null; // Consider handling this better
         }
 
-        String query = "SELECT * FROM StudySC.StudyGroup";
+        String query = "SELECT * FROM StudySC.study_group";
 
         try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
              PreparedStatement ps = conn.prepareStatement(query);
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                StudyGroup studyGroup = new StudyGroup(
+                StudyGroup studyGroup = new StudyGroup(null,
                         rs.getString("coursename"),
-                        rs.getString("meeting_date"), rs.getString("meeting_time_start"), rs.getString("location"),
-                        rs.getInt("capacity"));
+                        rs.getString("meeting_date"), rs.getString("meeting_time_start"), rs.getInt("capacity"),
+                        rs.getString("location"));
                 studyGroups.add(studyGroup);
             }
         } catch (SQLException e) {

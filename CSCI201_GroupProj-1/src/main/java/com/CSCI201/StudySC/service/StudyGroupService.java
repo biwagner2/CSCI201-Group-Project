@@ -76,14 +76,7 @@ public class StudyGroupService {
          return studyGroupRepository.save(studyGroup);
      }
     
-    
-//    public StudyGroup getStudyGroup(Integer group_id)
-//	{ 
-//		return StudyGroupRepository.findById(group_id);
-//	}
-    
-    
-    
+   
     
     
     
