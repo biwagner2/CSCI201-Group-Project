@@ -27,23 +27,36 @@ public class StudyGroup {
     private User creator;
 	
     private String coursename;
-    private Date meetingDate;
-    private Time meetingTimeStart;
-    private Time meetingTimeEnd;
+    private String meetingDate;
+    private String meetingTimeStart;
+    private String meetingTimeEnd;
     private Integer capacity;
     private String location;
 	
-    public StudyGroup(User creator, String coursename, Date meetingDate, Time meetingTimeStart, Time meetingTimeEnd, Integer capacity, String location) {
-        this.creator = creator;
-        this.coursename = coursename;
-        this.meetingDate = meetingDate;
-        this.meetingTimeStart = meetingTimeStart;
-        this.meetingTimeEnd = meetingTimeEnd;
-        this.capacity = capacity;
-        this.location = location;
-    }
+//    public StudyGroup(User creator, String coursename, Date meetingDate, Time meetingTimeStart, Time meetingTimeEnd, Integer capacity, String location) {
+//        this.creator = creator;
+//        this.coursename = coursename;
+//        this.meetingDate = meetingDate;
+//        this.meetingTimeStart = meetingTimeStart;
+//        this.meetingTimeEnd = meetingTimeEnd;
+//        this.capacity = capacity;
+//        this.location = location;
+//    }
     
-    public User getCreator() {
+    public StudyGroup(String courseName, String meeting_date,
+    		String meeting_time_start, String location, int capacity) {
+    	
+    	
+        this.coursename = courseName;
+        this.meetingDate = meeting_date;
+        this.meetingTimeStart = meeting_time_start;
+        this.location = location;
+        this.capacity = capacity;
+    }
+
+	
+
+	public User getCreator() {
 		return creator;
 	}
 	public void setCreator(User creator) {
@@ -55,24 +68,24 @@ public class StudyGroup {
 	public void setCoursename(String coursename) {
 		this.coursename = coursename;
 	}
-	public Date getMeetingDate() {
-		return meetingDate;
-	}
-	public void setMeetingDate(Date meetingDate) {
-		this.meetingDate = meetingDate;
-	}
-	public Time getMeetingTimeStart() {
-		return meetingTimeStart;
-	}
-	public void setMeetingTimeStart(Time meetingTimeStart) {
-		this.meetingTimeStart = meetingTimeStart;
-	}
-	public Time getMeetingTimeEnd() {
-		return meetingTimeEnd;
-	}
-	public void setMeetingTimeEnd(Time meetingTimeEnd) {
-		this.meetingTimeEnd = meetingTimeEnd;
-	}
+//	public Date getMeetingDate() {
+//		return meetingDate;
+//	}
+//	public void setMeetingDate(Date meetingDate) {
+//		this.meetingDate = meetingDate;
+//	}
+//	public Time getMeetingTimeStart() {
+//		return meetingTimeStart;
+//	}
+//	public void setMeetingTimeStart(Time meetingTimeStart) {
+//		this.meetingTimeStart = meetingTimeStart;
+//	}
+//	public Time getMeetingTimeEnd() {
+//		return meetingTimeEnd;
+//	}
+//	public void setMeetingTimeEnd(Time meetingTimeEnd) {
+//		this.meetingTimeEnd = meetingTimeEnd;
+//	}
 	public Integer getCapacity() {
 		return capacity;
 	}
