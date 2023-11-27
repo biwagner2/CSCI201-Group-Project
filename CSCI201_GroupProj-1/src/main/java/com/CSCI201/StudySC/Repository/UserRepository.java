@@ -7,4 +7,6 @@ import com.CSCI201.StudySC.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, String>{
+
+	User findByEmail(String uscEmail);
 }
