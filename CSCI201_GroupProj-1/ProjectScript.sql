@@ -20,8 +20,8 @@ CREATE TABLE `StudySC`.`StudyGroup` (
   `group_id` INT NOT NULL AUTO_INCREMENT,
   `creator_email` VARCHAR(255) NOT NULL,
   `coursename` VARCHAR(255) NULL,
-  `meeting_date` DATE NULL,
-  `meeting_time_start` TIME NULL,
+  `meeting_date` VARCHAR(255) NULL,
+  `meeting_time_start` VARCHAR(255) NULL,
   `capacity` INT NULL,
   `location` VARCHAR(255) NULL,
   PRIMARY KEY (`group_id`),
@@ -30,8 +30,8 @@ CREATE TABLE `StudySC`.`StudyGroup` (
 
 CREATE TABLE `StudySC`.`StudyGroupMembers` (
  `entry` INT NOT NULL,
- `group_id` INT NOT NULL,
-  `user_email` VARCHAR(255) NOT NULL,
+ `group_id` INT,
+  `user_email` VARCHAR(255),
   
   PRIMARY KEY (`entry`),
   FOREIGN KEY (`group_id`) REFERENCES `StudyGroup`(`group_id`),

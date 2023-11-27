@@ -2,25 +2,32 @@ package com.CSCI201.StudySC.model;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Table(name = "User")
 @Getter
 @Setter
 public class User {
 	
 	 @Id
 	 private String email;
+	
 	 private String name;
 	 private String password;
 	 
-	 @OneToMany(mappedBy = "creator")
+	 @OneToMany(mappedBy = "creator", cascade = CascadeType.PERSIST)
 	  private List<StudyGroup> studyGroups;
+	 
+	 @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+	  private List<StudyGroupMembers> studyGroupMembers;
     
 
     // Getter and setter for fullName

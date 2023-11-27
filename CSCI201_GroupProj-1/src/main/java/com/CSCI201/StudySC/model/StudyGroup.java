@@ -2,48 +2,66 @@ package com.CSCI201.StudySC.model;
 
 import java.sql.Time;
 import java.util.Date;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 
-
+    
 @Entity
 @Getter
 @Setter
 public class StudyGroup {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer group_id;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "creator_email", referencedColumnName = "email")
     private User creator;
 	
     private String coursename;
-    private Date meetingDate;
-    private Time meetingTimeStart;
-    private Time meetingTimeEnd;
+    private String meetingDate;
+    private String meetingTimeStart;
+    private String meetingTimeEnd;
     private Integer capacity;
     private String location;
 	
-    public StudyGroup(User creator, String coursename, Date meetingDate, Time meetingTimeStart, Time meetingTimeEnd, Integer capacity, String location) {
+    @OneToMany(mappedBy = "studyGroup")
+    private List<StudyGroupMembers> studyGroupMembers;
+    
+    public StudyGroup(User creator, String coursename, String meetingDate, String meetingTimeStart, Integer capacity, String location) {
         this.creator = creator;
         this.coursename = coursename;
         this.meetingDate = meetingDate;
         this.meetingTimeStart = meetingTimeStart;
-        this.meetingTimeEnd = meetingTimeEnd;
         this.capacity = capacity;
         this.location = location;
     }
     
-    public User getCreator() {
+//    public StudyGroup(String courseName, String meeting_date,
+//    		String meeting_time_start, String location, int capacity) {
+//    	
+//    	
+//        this.coursename = courseName;
+//        this.meetingDate = meeting_date;
+//        this.meetingTimeStart = meeting_time_start;
+//        this.location = location;
+//        this.capacity = capacity;
+//    }
+
+	
+
+	public User getCreator() {
 		return creator;
 	}
 	public void setCreator(User creator) {
@@ -55,24 +73,19 @@ public class StudyGroup {
 	public void setCoursename(String coursename) {
 		this.coursename = coursename;
 	}
-	public Date getMeetingDate() {
+	public String getMeetingDate() {
 		return meetingDate;
 	}
-	public void setMeetingDate(Date meetingDate) {
+	public void setMeetingDate(String meetingDate) {
 		this.meetingDate = meetingDate;
 	}
-	public Time getMeetingTimeStart() {
+	public String  getMeetingTimeStart() {
 		return meetingTimeStart;
 	}
-	public void setMeetingTimeStart(Time meetingTimeStart) {
+	public void setMeetingTimeStart(String meetingTimeStart) {
 		this.meetingTimeStart = meetingTimeStart;
 	}
-	public Time getMeetingTimeEnd() {
-		return meetingTimeEnd;
-	}
-	public void setMeetingTimeEnd(Time meetingTimeEnd) {
-		this.meetingTimeEnd = meetingTimeEnd;
-	}
+	
 	public Integer getCapacity() {
 		return capacity;
 	}
