@@ -74,4 +74,8 @@ body {
     margin-bottom: 15px;
 }
 
-
+.errorMessage{
+	color: rgb(255, 204, 0);
+	font-family: 'Mochiy Pop P One', sans-serif;
+	font-size: 100%;
+}

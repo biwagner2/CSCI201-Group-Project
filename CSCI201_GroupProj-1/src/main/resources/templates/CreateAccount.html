@@ -59,6 +59,10 @@
 				<button type = "submit" class="registerButton"> Register </button>
 			</form>
 			<br>
+			<br>
+        <div class="errorMessage" th:if="${errorMessage}">
+            <p th:text="${errorMessage}"></p>
+        </div>
 	</div>
 </body>
 </html>
