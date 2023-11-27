@@ -29,8 +29,11 @@ CREATE TABLE `StudySC`.`StudyGroup` (
 );
 
 CREATE TABLE `StudySC`.`StudyGroupMembers` (
-  `group_id` INT NOT NULL,
+ `entry` INT NOT NULL,
+ `group_id` INT NOT NULL,
   `user_email` VARCHAR(255) NOT NULL,
+  
+  PRIMARY KEY (`entry`),
   FOREIGN KEY (`group_id`) REFERENCES `StudyGroup`(`group_id`),
   FOREIGN KEY (`user_email`) REFERENCES `User`(`email`)
 );
