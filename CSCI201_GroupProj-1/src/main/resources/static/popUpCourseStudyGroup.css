@@ -54,6 +54,14 @@ body {
     border-radius: 5px;
 }
 
+.course-form input[type="date"]
+{
+	padding: 2%;
+    margin-bottom: 4%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
 .course-form button {
 	margin-top: 4%;
     padding: 2%;

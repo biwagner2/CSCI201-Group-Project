@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.CSCI201.StudySC.Repository.UserRepository;
 import com.CSCI201.StudySC.model.StudyGroup;
 import com.CSCI201.StudySC.model.User;
 import com.CSCI201.StudySC.service.StudyGroupService;
@@ -23,7 +24,13 @@ public class RegisterController {
 	//private final UserService userService = new UserService();
 	@Autowired
 	private UserService userService;
-	private final StudyGroupService studyGroupService = new StudyGroupService();
+	
+	@Autowired
+	private StudyGroupService studyGroupService;
+	
+	@Autowired
+	private UserRepository userRepository;
+	
 	private User currUser = null;
 	
 	//Login Page opens by default
@@ -45,7 +52,7 @@ public class RegisterController {
             return "SchedulePage";
         } else {
             // Handle invalid login
-        	model.addAttribute("errorMessage", "Account not found. Please try a different one.");
+        	model.addAttribute("errorMessage", "Email and password don't match. Please try again");
             return "login.html";
         }
     }
@@ -79,7 +86,7 @@ public class RegisterController {
     public String showUserProfilePage(Model model) {
     	model.addAttribute("fullname", currUser.getFullName());
         model.addAttribute("email", currUser.getUscEmail());
-        return "UserProfile";
+        return "UserProfile"; 
     }
     
     
@@ -111,15 +118,17 @@ public class RegisterController {
     }
     
     
-    //Add a post mapping that add new group to the database from inside the newStudyGroup page then take you back to schedule page...
-//    @PostMapping("/schedule")
-//    public String createNewStudyGroupPage(@ModelAttribute StudyGroup studyGroup, Model model)
-//    {
-//    	System.out.println(studyGroup.toString());
-//    	studyGroupService.insertNewStudyGroup(studyGroup);
-//    	return "SchedulePage";
-//    }
-//    
+   // Add a post mapping that add new group to the database from inside the newStudyGroup page then take you back to schedule page...
+    @PostMapping("/schedule")
+    public String createNewStudyGroupPage(@ModelAttribute StudyGroup studyGroup, Model model)
+    {
+    	//studyGroup.setCreator(currUser);
+    	studyGroupService.createStudyGroup(studyGroup, currUser);
+    	
+    	return "SchedulePage";
+    }
+        
+    
     
     //SHOULD LOOK INTO USING JPA and Hibernate Annotations so we don't need to use JDBC calls!!!
     
