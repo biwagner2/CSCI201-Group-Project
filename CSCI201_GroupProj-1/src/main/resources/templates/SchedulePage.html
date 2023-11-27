@@ -5,24 +5,110 @@
 <title>Create Account</title>
 	<link rel="stylesheet" type="text/css" href="SchedulePage.css" /> 
     <script src="SchedulePage.js"></script>
+    <script>
+
+        // Function to logout the user (expire their cookie)
+        function logout() {
+            document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        }
+
+        // Function to check if the user is logged in
+        function getCookie(name){
+		    const decodedValue = decodeURIComponent(document.cookie);
+		    const arrayOfCookies = decodedValue.split("; ");
+		    let result = null;
+		    
+		    arrayOfCookies.forEach(element => {
+		        if(element.indexOf(name) == 0){
+		            result = element.substring(name.length + 1)
+		        }
+		    })
+		    return result;
+		}
+
+        // Function to display certain elements for user or guest mode
+		document.addEventListener('DOMContentLoaded', function() {
+		    const user = getCookie("username");
+
+            // If the user is not logged in, display guest mode
+		    if (!user) {
+		        // User is not logged in, modify the CSS of join buttons
+		        const joinBtns = document.querySelectorAll('.join-btn');
+		        joinBtns.forEach(btn => {
+		            btn.style.backgroundColor = '#808080'; // Change background color to gray
+		            btn.style.cursor = 'not-allowed'; // Change cursor icon
+		        });
+
+                // Hide create new group button
+                const newStudyGroupBtn = document.getElementById("newGroupButton");
+                newStudyGroupBtn.style.pointerEvents = 'none';
+                newStudyGroupBtn.style.display = 'none';
+                
+                // Change "Profile" link to "Log In"
+                const profileBtn = document.getElementById("profileButton");
+                profileBtn.textContent = 'Log In';
+                profileBtn.href = '/';
+
+                // Hide logout button
+                const logoutBtn = document.getElementById("logoutButton");
+                logoutBtn.style.display = 'none';
+
+		    } else {
+				// If the user is not logged in, log them out by removing their cookie
+                logout();
+            }
+		});
+
+    </script>
 </head>
 <body>
-
   <div class="navbar">
-    
     <a id="newGroupButton" href="/newStudyGroup">New Group</a>
-
-   
-    <a id="homeButton"  >Home</a>
-
-    
+    <a id="logoutButton"  href="/">Logout</a>
     <a id="profileButton" href="/userProfile">Profile</a>
+    <a id="homeButton"  >Home</a>
   </div>
-
+  
+  <!-- TODO (Debug): The elements below in "courseContainer" are placeholders. -->
+  <!-- They aren't actual values from the study_groups table. So, you need to  -->
+  <!-- modify the html elements populated from the data of the study_groups -->
+  <!-- table for guest mode to work, rather than the ones below bc they are just placeholders. -->
   <div class="courseContainer">
-   
- 
-       
+    <div class="course">
+      <h2>CSCI 201: Principles of Software Development</h2>
+      <div class="label">
+        <a id = "status"> Status </a>
+        <a id = "location"> Location </a>
+        <a id = "time"> Time </a>
+        <a id = "size"> Size </a>
+      </div>
+
+      <div class="details">DMC 101 | 1:00 PM - 2:00 PM | Size: 6/8</div>
+      <div class="join-btn">Join</div>
+    </div>
+    <div class="course">
+      <h2>Math 225: Linear Algebra</h2>
+      <div class="label">
+        <a id = "status"> Status </a>
+        <a id = "location"> Location </a>
+        <a id = "time"> Time </a>
+        <a id = "size"> Size </a>
+      </div>
+      <div class="details">GFS 114 | 7:00 PM - 9:00 PM | Size: 3/8</div>
+      <div class="join-btn">Join</div>
+    </div>
+    <div class="course">
+      <h2>Chem 105b: General Chemistry</h2>
+      <div class="label">
+        <a id = "status"> Status </a>
+        <a id = "location"> Location </a>
+        <a id = "time"> Time </a>
+        <a id = "size"> Size </a>
+      </div>
+      <div class="details">LCS 101 | 3:00 PM - 5:00 PM | Size: 5/5</div>
+      <div class="join-btn">Join</div>
+    </div>
+    <!-- Add more courses as needed -->
   </div>
   
 

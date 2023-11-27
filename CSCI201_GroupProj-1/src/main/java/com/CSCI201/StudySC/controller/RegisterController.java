@@ -16,6 +16,9 @@ import com.CSCI201.StudySC.model.User;
 import com.CSCI201.StudySC.service.StudyGroupService;
 import com.CSCI201.StudySC.service.UserService;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
+
 
 
 
@@ -33,15 +36,15 @@ public class RegisterController {
 	
 	private User currUser = null;
 	
-	//Login Page opens by default
+	// Login Page opens by default
     @GetMapping("/")
     public String login() {
         return "login.html";
     }
     
-    //Authenticate user
+    // Authenticate user
     @PostMapping("/login")
-    public String loginUser(@RequestParam String email, @RequestParam String password, Model model) {
+    public String loginUser(@RequestParam String email, @RequestParam String password, Model model, HttpServletResponse response) {
     	// Validate the user credentials against the database
         User user = userService.getUserByEmail(email);
 
@@ -49,6 +52,17 @@ public class RegisterController {
             currUser = user;
             model.addAttribute("fullname", currUser.getFullName());
             model.addAttribute("email", currUser.getUscEmail());
+            
+            // Set the cookie (key: username, value: user's email)
+            Cookie userCookie = new Cookie("username", String.valueOf(email));
+            
+            // Cookie expires after 1 hour (1 hr = 3600 seconds)
+            userCookie.setMaxAge(3600);
+            
+            // Make cookie visible for all pages
+            userCookie.setPath("/");
+            response.addCookie(userCookie);
+            
             return "SchedulePage";
         } else {
             // Handle invalid login
