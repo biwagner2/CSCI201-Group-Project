@@ -1,5 +1,4 @@
-
-
+// CODE FROM ORIGINAL FILE
 document.addEventListener('DOMContentLoaded', function () {
     // Fetch study groups from the servlet
     fetch('SchedulePageServlet')
@@ -7,7 +6,9 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(response => response.json())
         .then(data => {
             // Populate the courseContainer div with study group information
-            populateCourseContainer(data);
+           
+           populateCourseContainer(data);
+           updateUI();
         })
         .catch(error => {
             console.error('Error fetching data:', error);
@@ -107,4 +108,59 @@ function groupByCoursename(studyGroups) {
     });
 
     return groupedStudyGroups;
+}
+
+// NOT FROM ORIGINAL FILE
+// Function to logout the user (expire their cookie)
+function logout() {
+    document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
+
+// Function to check if the user is logged in
+function getCookie(name){
+    const decodedValue = decodeURIComponent(document.cookie);
+    const arrayOfCookies = decodedValue.split("; ");
+    let result = null;
+    
+    arrayOfCookies.forEach(element => {
+        if(element.indexOf(name) == 0){
+            result = element.substring(name.length + 1)
+        }
+    })
+    return result;
+}
+
+// Function to display certain elements for user or guest mode
+function updateUI() {
+    const user = getCookie("username");
+
+    // If the user is not logged in, display guest mode
+    if (!user) {
+		console.log("Entered guest mode...");
+        // User is not logged in, modify the CSS of join buttons
+        const joinBtns = document.querySelectorAll('.join-btn');
+        joinBtns.forEach(btn => {
+            btn.style.backgroundColor = '#808080'; // Change background color to gray
+            btn.style.cursor = 'not-allowed'; // Change cursor icon
+        });
+
+        // Hide create new group button
+        const newStudyGroupBtn = document.getElementById("newGroupButton");
+        newStudyGroupBtn.style.pointerEvents = 'none';
+        newStudyGroupBtn.style.display = 'none';
+        
+        // Change "Profile" link to "Log In"
+        const profileBtn = document.getElementById("profileButton");
+        profileBtn.textContent = 'Log In';
+        profileBtn.href = '/';
+
+        // Hide logout button
+        const logoutBtn = document.getElementById("logoutButton");
+        logoutBtn.style.display = 'none';
+
+    } else {
+		console.log("Entered user mode...");
+		// If the user is not logged in, log them out by removing their cookie
+        logout();
+    }
 }
