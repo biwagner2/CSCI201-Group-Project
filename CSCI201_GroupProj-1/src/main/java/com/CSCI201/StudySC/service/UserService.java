@@ -18,32 +18,8 @@ public class UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+
 	
-//    public void insertNewUser(String fullName, String password, String uscEmail) {
-//        Connection conn = null;
-//        PreparedStatement st = null;
-//        try {
-//        	conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/StudySC?user=root&password=CC9golfalex!"); // add
-//            st = conn.prepareStatement("INSERT INTO User (name, password, email) VALUES (?, ?, ?)");
-//            st.setString(1, fullName);
-//            st.setString(2, password);
-//            st.setString(3, uscEmail);
-//            st.executeUpdate();
-//        } catch (SQLException sqle) {
-//            System.out.println(sqle.getMessage());
-//        } finally {
-//            try {
-//                if (st != null) {
-//                    st.close();
-//                }
-//                if (conn != null) {
-//                    conn.close();
-//                }
-//            } catch (SQLException sqle) {
-//                System.out.println(sqle.getMessage());
-//            }
-//        }
-//    }
 	//Source: "How to make it so that a user can't use an already existing email in my table to sign up?" prompt, ChatGPT (4 lines), Nov. 22 2023
 	  //https://chat.openai.com/c/54dae8bb-4524-4684-b6a3-4c9d68fdbd0c
 	    public User create(User user) {

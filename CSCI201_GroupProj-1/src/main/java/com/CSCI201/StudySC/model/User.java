@@ -29,7 +29,9 @@ public class User {
 	 @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
 	  private List<StudyGroupMembers> studyGroupMembers;
     
-
+	 public User() {
+		 
+	 }
     // Getter and setter for fullName
     public String getFullName() {
         return name;
