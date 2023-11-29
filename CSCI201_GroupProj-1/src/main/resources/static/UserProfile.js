@@ -53,6 +53,10 @@ function cancelPassEdit() {
     document.getElementById('editPassForm').style.display = 'none';
 }
 
+function deleteCourse(button) {
+    var row = button.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+}
 
 function addCourse() {
     var table = document.getElementById("scheduleTable");
