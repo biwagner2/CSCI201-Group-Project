@@ -23,7 +23,7 @@ public class StudyGroup {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer group_id;
+	private Integer groupId;
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "creator_email", referencedColumnName = "email")
@@ -32,12 +32,16 @@ public class StudyGroup {
     private String coursename;
     private String meetingDate;
     private String meetingTimeStart;
-    private String meetingTimeEnd;
     private Integer capacity;
     private String location;
+    private Integer courseId;
 	
     @OneToMany(mappedBy = "studyGroup")
     private List<StudyGroupMembers> studyGroupMembers;
+    
+    public StudyGroup() {
+    	
+    }
     
     public StudyGroup(User creator, String coursename, String meetingDate, String meetingTimeStart, Integer capacity, String location) {
         this.creator = creator;
@@ -48,17 +52,7 @@ public class StudyGroup {
         this.location = location;
     }
     
-//    public StudyGroup(String courseName, String meeting_date,
-//    		String meeting_time_start, String location, int capacity) {
-//    	
-//    	
-//        this.coursename = courseName;
-//        this.meetingDate = meeting_date;
-//        this.meetingTimeStart = meeting_time_start;
-//        this.location = location;
-//        this.capacity = capacity;
-//    }
-
+    
 	
 
 	public User getCreator() {
@@ -99,6 +93,15 @@ public class StudyGroup {
 		this.location = location;
 	}
 	
+	public Integer getCourseId() {
+		return courseId;
+	}
+
+
+	public void setCourseId(Integer courseId) {
+		this.courseId = courseId;
+	}
+	
 	 @Override
 	    public String toString() {
 	        return "StudyGroup{" +
@@ -106,10 +109,10 @@ public class StudyGroup {
 	                ", coursename='" + coursename + '\'' +
 	                ", meetingDate=" + meetingDate +
 	                ", meetingTimeStart=" + meetingTimeStart +
-	                ", meetingTimeEnd=" + meetingTimeEnd +
 	                ", capacity=" + capacity +
 	                ", location='" + location + '\'' +
 	                '}';
 	    }
+
 	 
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.CSCI201.StudySC.Repository.UserRepository;
 import com.CSCI201.StudySC.model.StudyGroup;
 import com.CSCI201.StudySC.model.User;
+import com.CSCI201.StudySC.service.StudyGroupMembersService;
 import com.CSCI201.StudySC.service.StudyGroupService;
 import com.CSCI201.StudySC.service.UserService;
 
@@ -33,6 +34,9 @@ public class RegisterController {
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+//	@Autowired
+//    private StudyGroupMembersService studyGroupMembersService;
 	
 	private User currUser = null;
 	

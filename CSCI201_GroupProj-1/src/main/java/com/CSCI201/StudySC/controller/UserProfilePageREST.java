@@ -19,7 +19,7 @@ import java.util.List;
 public class UserProfilePageREST {
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/StudySC";
     private static final String JDBC_USER = "root";
-    private static final String JDBC_PASSWORD = "#Salvatore7";
+    private static final String JDBC_PASSWORD = "Bwagner2003.";
 
     @GetMapping("/UserStudyGroupServlet")
     public List<StudyGroup> doGet(@RequestParam("email") String email) {
