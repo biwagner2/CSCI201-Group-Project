@@ -93,6 +93,10 @@ public class StudyGroup {
 		this.location = location;
 	}
 	
+	public Integer getGroupId() {
+		return groupId;
+	}
+	
 	public Integer getCourseId() {
 		return courseId;
 	}

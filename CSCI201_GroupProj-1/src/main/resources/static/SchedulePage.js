@@ -43,25 +43,46 @@ console.log(studyGroups);
 		//	console.log(group.groupId);
             var groupDetailsDiv = document.createElement("div");
             groupDetailsDiv.classList.add("groupDetails");
-
+			
+			let statusBar = document.createElement("span");
+			statusBar.textContent = 'available';
+			
             groupDetailsDiv.innerHTML = `
-                <p>Status | ${group.location} - ${group.meetingDate} ${group.meetingTimeStart} | Size: ${group.capacity}</p>
+                <p>${statusBar.textContent} | ${group.location} - ${group.meetingDate} ${group.meetingTimeStart} | Size: ${group.capacity}</p>
             `;
 
             var joinBtn = document.createElement("button");
             joinBtn.classList.add("join-btn");
             joinBtn.textContent = "Join";
-            joinBtn.addEventListener('click', function() {
-                let email = getCookie('userEmail'); //THIS NEEDS TO BE FIXED THE COOKIE ISN'T WORKING. RIGHT NOW HAVE TO MANUALLY SET EMAIL!!!!
-                email = "biwagner@usc.edu";
-                if (email) {
-					//console.log(group.groupId);
-                  //  joinStudyGroup(group.groupId, email); 
-                  joinStudyGroup(group.courseId, email);
-                } else {
-                    console.error('Email not found in cookie');
+            
+            let buttonClicked = false;
+            
+            // Function to handle the button click
+            function handleJoinButtonClick() {
+                if (!buttonClicked) {
+                    let email = getCookie('username'); // THIS NEEDS TO BE FIXED, THE COOKIE ISN'T WORKING RIGHT NOW; YOU HAVE TO MANUALLY SET EMAIL
+                    if (email) {
+                        // Check if the user is in the study group or if the study group is full
+                        makeFetchRequest(group.courseId, email, statusBar);
+                    } else {
+                        console.error('Email not found in cookie');
+                    }
+            
+                    // Set the button to gray and disable it after the first click
+                    joinBtn.style.backgroundColor = 'dimgray';
+                    joinBtn.style.cursor = 'not-allowed';
+                    joinBtn.textContent = "Joined";
+                    joinBtn.disabled = true;
+            
+                    buttonClicked = true;
                 }
-            });
+            }
+            
+            // Set the initial style to green
+            joinBtn.style.backgroundColor = 'green';
+            
+            // Add the click event listener
+            joinBtn.addEventListener('click', handleJoinButtonClick);
 
             groupDetailsDiv.appendChild(joinBtn);
             detailsDiv.appendChild(groupDetailsDiv);
@@ -98,67 +119,13 @@ function getCookie(name) {
 
 
 
-//I COMMENTED OUT THE OLD FUNCTIONS THAT WERE TAKING IN "groupId" AND SWITCHED IT TO "courseId" IN MY REPLACEMENT FUNCTIONS DOWN BELOW...
-/*function joinStudyGroup(groupId, email) {
-    var studyGroupMembersRequest = {
-        studyGroup: {
-            group_id: groupId
-        },
-        user: {
-            email: email
-        }
-    };
-
-    makeFetchRequest(studyGroupMembersRequest);
-}
-
-function makeFetchRequest(studyGroupMembers) {
-    fetch('/addToStudyMembers', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(studyGroupMembers),
-    })
-    .then(response => {
-        if (!response.ok) {
-            console.error('Server responded with status:', response.status);
-            throw new Error('Network response was not ok');
-        }
-        return response.text();
-    })
-    .then(text => {
-        try {
-            const data = JSON.parse(text);
-            console.log('JSON data:', data);
-        } catch (e) {
-            console.error('Error parsing JSON:', e);
-            console.log('Original text:', text);
-        }
-    })
-    .catch((error) => {
-        console.error('Fetch error:', error);
-    });
-}
-*/
-
-/*
-function joinStudyGroup(groupId, email) {
-    makeFetchRequest(groupId, email);
-}*/
-
-function joinStudyGroup(courseId, email) { //NOW USING courseId instead.
-    makeFetchRequest(courseId, email);
-}
-
-
-function makeFetchRequest(courseId, email) { //NOW USING courseId instead.
+function makeFetchRequest(courseId, email, statusBar) {
     const requestData = {
-        courseId: courseId,  // Use courseId instead of groupId
+        courseId: courseId,
         email: email
     };
 
-  /*  fetch(`/addToStudyMembers?courseId=${courseId}&email=${email}`, {
+    fetch(`/addToStudyMembers?courseId=${courseId}&email=${email}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -172,75 +139,24 @@ function makeFetchRequest(courseId, email) { //NOW USING courseId instead.
         return response.text();
     })
     .then(text => {
-        try {
-            const data = JSON.parse(text);
-            console.log('JSON data:', data);
-        } catch (e) {
-            console.error('Error parsing JSON:', e);
-            console.log('Original text:', text);
+        
+        if (text.startsWith("Failed")) {
+            statusBar.textContent = 'Joined Already';
+            
+        } else {
+            statusBar.textContent = 'Joined';
         }
-    })
-    .catch((error) => {
-        console.error('Fetch error:', error);
-    });*/
-    
-    //CHANGED THE FETCH CALL SO THAT INSTEAD OF GIVING THE "SchedulePageREST" controller function a JSON, we just send the two values we need which is the course Id and an email.
-    //courseId is an Integer and email is a String. In the "SchedulePageREST" controller, the createStudyGroupMembers function takes these two parameters then send
-     fetch(`/addToStudyMembers?courseId=${courseId}&email=${email}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-    })
-    .then(response => {
-        if (!response.ok) {
-            console.error('Server responded with status:', response.status);
-            throw new Error('Network response was not ok');
-        }
-        return response.text();
-    })
-    .then(text => {
         console.log('Response text:', text);
-        // Handle the text response as needed, e.g., display a message to the user
     })
     .catch((error) => {
         console.error('Fetch error:', error);
+        window.alert('Error joining study group');
     });
 }
 
-/*
-function makeFetchRequest(groupId, email) {
-    const requestData = {
-        groupId: groupId,
-        email: email
-    };
 
-    fetch(`/addToStudyMembers?groupId=${groupId}&email=${email}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-    })
-    .then(response => {
-        if (!response.ok) {
-            console.error('Server responded with status:', response.status);
-            throw new Error('Network response was not ok');
-        }
-        return response.text();
-    })
-    .then(text => {
-        try {
-            const data = JSON.parse(text);
-            console.log('JSON data:', data);
-        } catch (e) {
-            console.error('Error parsing JSON:', e);
-            console.log('Original text:', text);
-        }
-    })
-    .catch((error) => {
-        console.error('Fetch error:', error);
-    });
-}*/
+
+
 
 document.addEventListener('DOMContentLoaded', function() {
     fetch('SchedulePageServlet')

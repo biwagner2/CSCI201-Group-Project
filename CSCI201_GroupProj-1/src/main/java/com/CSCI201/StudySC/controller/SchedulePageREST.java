@@ -12,13 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.CSCI201.StudySC.Repository.StudyGroupMembersRepository;
 import com.CSCI201.StudySC.Repository.UserRepository;
 import com.CSCI201.StudySC.model.StudyGroup;
-import com.CSCI201.StudySC.model.StudyGroupMembers;
-import com.CSCI201.StudySC.model.User;
 import com.CSCI201.StudySC.service.StudyGroupMembersService;
-import com.CSCI201.StudySC.service.StudyGroupService;
-import com.CSCI201.StudySC.service.UserService;
-import com.google.gson.Gson;
-
 import jakarta.transaction.Transactional;
 
 import java.sql.Connection;
@@ -86,11 +80,16 @@ public class SchedulePageREST {
 	    	System.out.println("Received request with groupId: " + courseId + ", email: " + email);
 
 	    	//Calls the helper function that is implemented in the StudyGroupMembersService file.
-	        studyGroupMembersService.createStudyGroupMembers(courseId, email);
+	        if (studyGroupMembersService.createStudyGroupMembers(courseId, email)) {
+	        	return new ResponseEntity<>("successfully added StudyGroupMembers", HttpStatus.CREATED); 
+	        }
+	        else {
+	        	return new ResponseEntity<>("Failed to add", HttpStatus.CREATED); 
+	        }
 	        
 	        //Then return a String to the JS file that says everything went well... CAN PROBABLY CHANGE THIS RESPONSE TO SOMETHING ELSE THEN USE IT IN THE JAVASCRIPT FILE
 	        //TO CHANGE HOW THE JOIN BUTTON LOOKS WHEN YOU RECEIVE THE RESPONSE
-	        return new ResponseEntity<>("StudyGroupMembers created successfully", HttpStatus.CREATED); 
+	        
 	    } catch (Exception e) {
 	        // Handle exceptions and return an error response
 	        return new ResponseEntity<>("Failed to create StudyGroupMembers: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

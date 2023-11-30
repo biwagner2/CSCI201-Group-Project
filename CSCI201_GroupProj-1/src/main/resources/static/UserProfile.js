@@ -83,7 +83,8 @@ function addCourse() {
 // Populate study groups
 document.addEventListener('DOMContentLoaded', function () {
     // Fetch study groups from the servlet
-    fetch('UserStudyGroupServlet?email=example@email.com')
+    var email = document.getElementById("emailValue").textContent;
+    fetch('UserStudyGroupServlet?email=' +  email)
         .then(response => response.json())
         .then(data => {
             // Populate the courseContainer div with study group information
@@ -101,7 +102,7 @@ function populateStudyGroupContainer(studyGroups) {
     for (var i = 0; i < studyGroups.length; i++) {
         var studyGroup = studyGroups[i];
 
-        var row = tbody.insertRow(i);
+        var row = tbody.insertRow(-1);
         var courseNameCell = row.insertCell(0);
         var meetingDateCell = row.insertCell(1);
         var meetingTimeStartCell = row.insertCell(2);
@@ -115,7 +116,7 @@ function populateStudyGroupContainer(studyGroups) {
         capacityCell.innerHTML = studyGroup.capacity;
         locationCell.innerHTML = studyGroup.location;
 
-        actionsCell.innerHTML = "<button onclick='deleteGroup(" + studyGroup.group_id + ")'>Delete</button>";
+        actionsCell.innerHTML = "<button onclick='deleteGroup(\"" + studyGroup.coursename + "\")'>Delete</button>";
     }
 }
 
@@ -123,7 +124,7 @@ function populateStudyGroupContainer(studyGroups) {
 function deleteAccount() {
     // Retrieve the email value using Thymeleaf expression
     var email = document.getElementById("emailValue").textContent;
-
+    console.log("Enter here!");
     // Send a DELETE request to delete the user account with the retrieved email
     fetch('/deleteUser/' + email, {
         method: 'DELETE',
@@ -141,12 +142,13 @@ function deleteAccount() {
 
 
 // Delete group
-function deleteGroup(groupId) {
-	var email = document.getElementById("emailValue").textContent;
+function deleteGroup(coursename) {
+    console.log("enter here");
+    var email = document.getElementById("emailValue").textContent;
+    console.log(email);
     // Send a DELETE request to remove the user from the group with the provided group ID
-    fetch('/deleteUserFromGroup/' + email + '/' + groupId, {
-        method: 'DELETE',
-    })
+    // hardcode here
+    fetch('/deleteUserFromGroup/' + email + '/' + coursename)    
     .then(response => response.text())
     .then(result => {
         alert(result); // Display the result message
@@ -156,4 +158,3 @@ function deleteGroup(groupId) {
         console.error('Error deleting user from group:', error);
     });
 }
-

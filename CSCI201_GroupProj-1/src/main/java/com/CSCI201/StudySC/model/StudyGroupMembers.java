@@ -45,11 +45,16 @@ public class StudyGroupMembers {
 		
 	}
 	
+	public StudyGroup getStudyGroup() {
+		// TODO Auto-generated method stub
+		return studyGroup;
+		
+	}
 
 	public void setUser(User user) {
 		// TODO Auto-generated method stub
 		this.user = user;
 	}
-
+	
 
 }
