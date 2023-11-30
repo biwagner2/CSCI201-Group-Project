@@ -43,7 +43,7 @@ public class UserProfilePageREST {
 
             while (rs.next()) {
                 String group_id = rs.getString("group_id");
-                System.out.println(group_id);
+               // System.out.println(group_id);
                 query = "SELECT * FROM StudySC.study_group WHERE group_id = ?";
                 PreparedStatement ps2 = conn.prepareStatement(query);
                 ps2.setString(1, group_id);
@@ -65,11 +65,11 @@ public class UserProfilePageREST {
             e.printStackTrace(); // Consider a better way to handle this exception
             return null;
         }
- 
+
         return studyGroups;
     }
-
-    @DeleteMapping("/deleteUser/{email}")
+    
+    @GetMapping("/deleteUser/{email}")
     public String deleteUser(@PathVariable String email) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -78,24 +78,70 @@ public class UserProfilePageREST {
             return "Error: Unable to delete user.";
         }
 
-        String deleteUserQuery = "DELETE FROM StudySC.user WHERE user_email = ?";
+        String deleteUserQuery = "SELECT * FROM StudySC.study_group WHERE creator_email = ?";
 
         try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
-             PreparedStatement ps = conn.prepareStatement(deleteUserQuery)) {
+            PreparedStatement ps = conn.prepareStatement(deleteUserQuery)) {
             ps.setString(1, email);
-            int deletedRows = ps.executeUpdate();
 
-            if (deletedRows > 0) {
-                return "User with email " + email + " has been deleted.";
-            } else {
-                return "User with email " + email + " not found.";
+            ResultSet rs = ps.executeQuery();
+            System.out.println("Made it here!!!!!!  1");
+            while (rs.next()) {
+                String groupID = rs.getString("group_id");
+                deleteUserQuery = "SELECT * FROM StudySC.study_group_members WHERE group_id = ?";
+                PreparedStatement ps2 = conn.prepareStatement(deleteUserQuery);
+                ps2.setString(1, groupID);
+                ResultSet rs2 = ps2.executeQuery();
+                String newEmail = "creator@usc.edu";
+                System.out.println("Made it here!!!!!!  1");
+                while (rs2.next()) {
+                    String makeEmail = rs2.getString("user_email");
+                    if (!makeEmail.equals(email)) {
+                        newEmail = makeEmail;
+                        break;
+                    }
+                }
+                System.out.println("Made it here!!!!!!  1");
+                if (!newEmail.equals("creator@usc.edu")) {
+                    deleteUserQuery = "UPDATE StudySC.study_group SET creator_email = ? WHERE group_id = ?";
+                    PreparedStatement ps3 = conn.prepareStatement(deleteUserQuery);
+                    ps3.setString(1, newEmail);
+                    ps3.setString(2, groupID);
+                    ps3.executeUpdate();
+                    System.out.println("enter here 4");
+                }
+                else {
+                    deleteUserQuery = "DELETE FROM StudySC.study_group_members WHERE group_id = ?";
+                    PreparedStatement ps3 = conn.prepareStatement(deleteUserQuery);
+                    ps3.setString(1, groupID);
+                    ps3.executeUpdate();
+                    System.out.println("enter here 4");
+
+                    deleteUserQuery = "DELETE FROM StudySC.study_group WHERE group_id = ?";
+                    ps3 = conn.prepareStatement(deleteUserQuery);
+                    ps3.setString(1, groupID);
+                    ps3.executeUpdate();
+                    System.out.println("enter here 4");
+                }
             }
+
+            deleteUserQuery = "DELETE FROM StudySC.study_group_members WHERE user_email = ?";
+            PreparedStatement ps4 = conn.prepareStatement(deleteUserQuery);
+            ps4.setString(1, email);
+            ps4.executeUpdate();
+
+            deleteUserQuery = "DELETE FROM StudySC.user WHERE email = ?";
+            PreparedStatement ps5 = conn.prepareStatement(deleteUserQuery);
+            ps5.setString(1, email);
+            ps5.executeUpdate();
+
+            return "DELETE ACCOUNT Successfully";
         } catch (SQLException e) {
             e.printStackTrace();
             return "Error: Unable to delete user.";
         }
     }
-
+    
     @GetMapping("/deleteUserFromGroup/{email}/{coursename}")
     public String deleteUserFromGroup(@PathVariable String email, @PathVariable String coursename) {
         System.out.println("Enter here!");
@@ -105,7 +151,7 @@ public class UserProfilePageREST {
             e.printStackTrace();
             return "Error: Unable to delete user from group.";
         }
-        System.out.println("enter here!");
+        //System.out.println("enter here!");
         String deleteUserFromGroupQuery = "SELECT * FROM StudySC.study_group WHERE coursename = ?";
         String deleteMemberQuery = "DELETE FROM StudySC.study_group_members WHERE user_email = ? AND group_id = ?";
         //System.out.println("email is : " + email);
@@ -121,7 +167,7 @@ public class UserProfilePageREST {
                     deletePs.setString(1, email);
                     deletePs.setString(2, groupId);
                     int deletedRows = deletePs.executeUpdate();
-
+    
                     if (deletedRows > 0) {
                         System.out.println("Deleted user " + email + " from group " + groupId);
                     } else {

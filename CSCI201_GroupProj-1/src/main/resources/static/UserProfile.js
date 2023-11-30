@@ -126,14 +126,12 @@ function deleteAccount() {
     var email = document.getElementById("emailValue").textContent;
     console.log("Enter here!");
     // Send a DELETE request to delete the user account with the retrieved email
-    fetch('/deleteUser/' + email, {
-        method: 'DELETE',
-    })
+    fetch('/deleteUser/' + email)
     .then(response => response.text())
     .then(result => {
         alert(result); // Display the result message
         location.reload(); // Refresh the page after deletion
-        //window.location.href = "login.html";
+        window.location.href = "http://localhost:8080";
     })
     .catch(error => {
         console.error('Error deleting account:', error);
@@ -144,7 +142,7 @@ function deleteAccount() {
 // Delete group
 function deleteGroup(coursename) {
     console.log("enter here");
-    var email = document.getElementById("emailValue").textContent;
+	var email = document.getElementById("emailValue").textContent;
     console.log(email);
     // Send a DELETE request to remove the user from the group with the provided group ID
     // hardcode here
