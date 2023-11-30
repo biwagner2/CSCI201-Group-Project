@@ -25,7 +25,7 @@ public class StudyGroupService {
 	@Autowired
 	private UserRepository userRepository;
 
-    
+     
     public StudyGroup createStudyGroup(StudyGroup studyGroup, User creator) {
     	 //HERE IS WHERE WE ADD THE CREATOR PART OF THE studyGroup. Use the email of the current signed in 
     								//user to find which user in the User table to set the creator equal to.

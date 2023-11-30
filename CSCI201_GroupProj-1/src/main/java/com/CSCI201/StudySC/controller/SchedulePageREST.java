@@ -30,7 +30,7 @@ public class SchedulePageREST {
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/StudySC";
     private static final String JDBC_USER = "root";
     private static final String JDBC_PASSWORD = "Bwagner2003.";
-
+ 
     @GetMapping("/SchedulePageServlet")
     public List<StudyGroup> doGet() {
     		List<StudyGroup> studyGroups = new ArrayList<>();

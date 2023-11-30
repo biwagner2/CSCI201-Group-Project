@@ -10,3 +10,4 @@ public interface StudyGroupRepository extends JpaRepository<StudyGroup, Integer>
 	public StudyGroup findByGroupId(Integer groupId);
 }
 
+ 
