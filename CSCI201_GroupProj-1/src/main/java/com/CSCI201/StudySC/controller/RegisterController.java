@@ -88,7 +88,7 @@ public class RegisterController {
        
         return "SchedulePage";
     }
-    
+     
     //On Login Page, when user clicks Sign In...
     //OR
     //On UserProfile Page, when user clicks Home in the nav bar...

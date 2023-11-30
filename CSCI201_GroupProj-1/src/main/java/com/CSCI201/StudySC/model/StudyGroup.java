@@ -28,7 +28,7 @@ public class StudyGroup {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "creator_email", referencedColumnName = "email")
     private User creator;
-	
+	 
     private String coursename;
     private String meetingDate;
     private String meetingTimeStart;

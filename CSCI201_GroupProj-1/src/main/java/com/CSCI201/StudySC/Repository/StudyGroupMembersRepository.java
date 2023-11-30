@@ -15,4 +15,4 @@ public interface StudyGroupMembersRepository extends JpaRepository<StudyGroupMem
 	
 	public StudyGroupMembers findByStudyGroupGroupId(Integer groupId);
 	public StudyGroupMembers findByStudyGroupGroupIdAndUserEmail(Integer groupId, String email);
-}
+} 

@@ -24,7 +24,7 @@ public class StudyGroupMembers {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "groupId", referencedColumnName = "groupId")
 	private StudyGroup studyGroup;
-	
+	 
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "user_email", referencedColumnName = "email")

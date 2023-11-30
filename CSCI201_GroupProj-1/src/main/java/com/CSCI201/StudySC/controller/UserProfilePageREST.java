@@ -65,7 +65,7 @@ public class UserProfilePageREST {
             e.printStackTrace(); // Consider a better way to handle this exception
             return null;
         }
-
+ 
         return studyGroups;
     }
 

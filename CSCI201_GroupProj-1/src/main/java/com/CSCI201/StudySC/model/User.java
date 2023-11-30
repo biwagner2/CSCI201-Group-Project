@@ -25,7 +25,7 @@ public class User {
 	 
 	 @OneToMany(mappedBy = "creator", cascade = CascadeType.PERSIST)
 	  private List<StudyGroup> studyGroups;
-	 
+	  
 	 @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
 	  private List<StudyGroupMembers> studyGroupMembers;
     
