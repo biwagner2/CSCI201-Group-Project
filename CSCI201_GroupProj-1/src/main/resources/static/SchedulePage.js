@@ -31,6 +31,7 @@ function populateCourseContainer(studyGroups) {
         ["Status", "Location", "Time", "Size"].forEach(function (labelText) {
             var label = document.createElement("span");
             label.textContent = labelText;
+            label.style.marginRight = "40px";
             labelDiv.appendChild(label);
         });
 
@@ -47,9 +48,7 @@ function populateCourseContainer(studyGroups) {
             let statusBar = document.createElement("span");
             statusBar.textContent = 'available';
 
-            groupDetailsDiv.innerHTML = `
-                <p>${statusBar.textContent} | ${group.location} - ${group.meetingDate} ${group.meetingTimeStart} | Size: ${group.capacity}</p>
-            `;
+          
 
             var joinBtn = document.createElement("button");
             joinBtn.classList.add("join-btn");
@@ -65,7 +64,7 @@ function populateCourseContainer(studyGroups) {
                         let email = getCookie('username');
                         if (email) {
                             // Check if the user is in the study group or if the study group is full
-                            makeFetchRequest(group.courseId, email, statusBar);
+                            makeFetchRequest(group.courseId, email, statusBar, groupDetailsDiv ,group );
                         } else {
                             console.error('Email not found in cookie');
                         }
@@ -89,6 +88,9 @@ function populateCourseContainer(studyGroups) {
                 joinBtn.disabled = true;
             }
 
+            groupDetailsDiv.innerHTML = `
+            <p>${statusBar.textContent} | ${group.location} - ${group.meetingDate} ${group.meetingTimeStart} | Size: ${group.capacity}</p>
+        `;
             groupDetailsDiv.appendChild(joinBtn);
             detailsDiv.appendChild(groupDetailsDiv);
         });
@@ -124,7 +126,7 @@ function getCookie(name) {
     return cookie ? cookie.split('=')[1] : null;
 }
 
-function makeFetchRequest(courseId, email, statusBar) {
+function makeFetchRequest(courseId, email, statusBar, groupDetailsDiv, group) {
     const requestData = {
         courseId: courseId,
         email: email
@@ -146,15 +148,33 @@ function makeFetchRequest(courseId, email, statusBar) {
         .then(text => {
             if (text.startsWith("Failed")) {
                 statusBar.textContent = 'Joined Already';
-                window.alert('joined previously');
+
+                var p = groupDetailsDiv.querySelector('p');
+                console.log(p);
+
+                p.textContent = `${statusBar.textContent} | ${group.location} - ${group.meetingDate} ${group.meetingTimeStart} | Size: ${group.capacity}`;
+                
+                console.log(statusBar.textContent);
+                // groupDetailsDiv.innerHTML = `
+                //     <p>$</p>
+                // `;
             } else {
                 statusBar.textContent = 'Joined';
+                requestAnimationFrame(() => {
+                    console.log(statusBar.textContent);
+                    var p = groupDetailsDiv.querySelector('p');
+                    console.log(p);
+    
+                    p.textContent = `${statusBar.textContent} | ${group.location} - ${group.meetingDate} ${group.meetingTimeStart} | Size: ${group.capacity}`;
+                    
+                });
+                
             }
             console.log('Response text:', text);
         })
         .catch((error) => {
             console.error('Fetch error:', error);
-            window.alert('hey error');
+            
         });
 }
 
