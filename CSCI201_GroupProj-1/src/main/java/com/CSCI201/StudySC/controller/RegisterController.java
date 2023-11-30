@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.CSCI201.StudySC.Repository.UserRepository;
 import com.CSCI201.StudySC.model.StudyGroup;
 import com.CSCI201.StudySC.model.User;
+import com.CSCI201.StudySC.service.StudyGroupMembersService;
 import com.CSCI201.StudySC.service.StudyGroupService;
 import com.CSCI201.StudySC.service.UserService;
 
@@ -33,6 +34,9 @@ public class RegisterController {
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+//	@Autowired
+//    private StudyGroupMembersService studyGroupMembersService;
 	
 	private User currUser = null;
 	
@@ -55,6 +59,7 @@ public class RegisterController {
             
             // Set the cookie (key: username, value: user's email)
             Cookie userCookie = new Cookie("username", String.valueOf(email));
+            System.out.println("String value of: " + String.valueOf(email));
             
             // Cookie expires after 1 hour (1 hr = 3600 seconds)
             userCookie.setMaxAge(3600);
@@ -62,7 +67,7 @@ public class RegisterController {
             // Make cookie visible for all pages
             userCookie.setPath("/");
             response.addCookie(userCookie);
-            
+            System.out.println("Cookie was set in controller.");
             return "SchedulePage";
         } else {
             // Handle invalid login
@@ -88,7 +93,22 @@ public class RegisterController {
     //OR
     //On UserProfile Page, when user clicks Home in the nav bar...
     @GetMapping("/schedule")
-    public String showSchedulePage() {
+    public String showSchedulePage(HttpServletResponse response) {
+    	
+    	// Get user email
+    	String email = currUser.getUscEmail();
+    	
+    	// Set a cookie (key: username, value: user's email)
+        Cookie userCookie = new Cookie("username", String.valueOf(email));
+        System.out.println("String value of: " + String.valueOf(email));
+        
+        // Cookie expires after 1 hour (1 hr = 3600 seconds)
+        userCookie.setMaxAge(3600);
+        
+        // Make cookie visible for all pages
+        userCookie.setPath("/");
+        response.addCookie(userCookie);
+        System.out.println("Cookie was set in controller.");
        
         return "SchedulePage";
     }

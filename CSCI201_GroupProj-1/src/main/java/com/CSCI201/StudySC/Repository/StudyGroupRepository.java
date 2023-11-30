@@ -7,5 +7,6 @@ import com.CSCI201.StudySC.model.StudyGroup;
 @Repository
 public interface StudyGroupRepository extends JpaRepository<StudyGroup, Integer> {
 	//Source:  https://youtu.be/_Jnu_jHfQbM?feature=shared
+	public StudyGroup findByGroupId(Integer groupId);
 }
 

@@ -1,7 +1,7 @@
 function populateCourseContainer(studyGroups) {
     var courseContainer = document.querySelector(".courseContainer");
     courseContainer.innerHTML = '';
-
+console.log(studyGroups);
     const groupedStudyGroups = groupByCoursename(studyGroups);
 
     groupedStudyGroups.forEach((groups, coursename) => {
@@ -40,25 +40,49 @@ function populateCourseContainer(studyGroups) {
         detailsDiv.classList.add("details");
 
         groups.forEach(group => {
+		//	console.log(group.groupId);
             var groupDetailsDiv = document.createElement("div");
             groupDetailsDiv.classList.add("groupDetails");
-
+			
+			let statusBar = document.createElement("span");
+			statusBar.textContent = 'available';
+			
             groupDetailsDiv.innerHTML = `
-                <p>Status | ${group.location} - ${group.meetingDate} ${group.meetingTimeStart} | Size: ${group.capacity}</p>
+                <p>${statusBar.textContent} | ${group.location} - ${group.meetingDate} ${group.meetingTimeStart} | Size: ${group.capacity}</p>
             `;
 
             var joinBtn = document.createElement("button");
             joinBtn.classList.add("join-btn");
             joinBtn.textContent = "Join";
-            joinBtn.addEventListener('click', function() {
-                let email = getCookie('userEmail');
-                email = "testemail@usc.edu";
-                if (email) {
-                    joinStudyGroup(group.groupId, email);
-                } else {
-                    console.error('Email not found in cookie');
+            
+            let buttonClicked = false;
+            
+            // Function to handle the button click
+            function handleJoinButtonClick() {
+                if (!buttonClicked) {
+                    let email = getCookie('username'); // THIS NEEDS TO BE FIXED, THE COOKIE ISN'T WORKING RIGHT NOW; YOU HAVE TO MANUALLY SET EMAIL
+                    if (email) {
+                        // Check if the user is in the study group or if the study group is full
+                        makeFetchRequest(group.courseId, email, statusBar);
+                    } else {
+                        console.error('Email not found in cookie');
+                    }
+            
+                    // Set the button to gray and disable it after the first click
+                    joinBtn.style.backgroundColor = 'dimgray';
+                    joinBtn.style.cursor = 'not-allowed';
+                    joinBtn.textContent = "Joined";
+                    joinBtn.disabled = true;
+            
+                    buttonClicked = true;
                 }
-            });
+            }
+            
+            // Set the initial style to green
+            joinBtn.style.backgroundColor = 'green';
+            
+            // Add the click event listener
+            joinBtn.addEventListener('click', handleJoinButtonClick);
 
             groupDetailsDiv.appendChild(joinBtn);
             detailsDiv.appendChild(groupDetailsDiv);
@@ -73,6 +97,8 @@ function groupByCoursename(studyGroups) {
     const groupedStudyGroups = new Map();
 
     studyGroups.forEach(group => {
+		
+		//console.log(group);
         const coursename = group.coursename;
 
         if (!groupedStudyGroups.has(coursename)) {
@@ -91,26 +117,19 @@ function getCookie(name) {
     return cookie ? cookie.split('=')[1] : null;
 }
 
-function joinStudyGroup(groupId, email) {
-    var studyGroupMembers = {
-        studyGroup: {
-            id: groupId
-        },
-        user: {
-            email: email
-        }
+
+
+function makeFetchRequest(courseId, email, statusBar) {
+    const requestData = {
+        courseId: courseId,
+        email: email
     };
 
-    makeFetchRequest(studyGroupMembers);
-}
-
-function makeFetchRequest(studyGroupMembers) {
-    fetch('/addToStudyMembers', {
+    fetch(`/addToStudyMembers?courseId=${courseId}&email=${email}`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify(studyGroupMembers),
     })
     .then(response => {
         if (!response.ok) {
@@ -120,18 +139,24 @@ function makeFetchRequest(studyGroupMembers) {
         return response.text();
     })
     .then(text => {
-        try {
-            const data = JSON.parse(text);
-            console.log('JSON data:', data);
-        } catch (e) {
-            console.error('Error parsing JSON:', e);
-            console.log('Original text:', text);
+        
+        if (text.startsWith("Failed")) {
+            statusBar.textContent = 'Joined Already';
+            
+        } else {
+            statusBar.textContent = 'Joined';
         }
+        console.log('Response text:', text);
     })
     .catch((error) => {
         console.error('Fetch error:', error);
+        window.alert('Error joining study group');
     });
 }
+
+
+
+
 
 document.addEventListener('DOMContentLoaded', function() {
     fetch('SchedulePageServlet')

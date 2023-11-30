@@ -18,16 +18,43 @@ import lombok.Setter;
 public class StudyGroupMembers {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer entry;
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "group_id", referencedColumnName = "group_id")
+	@JoinColumn(name = "groupId", referencedColumnName = "groupId")
 	private StudyGroup studyGroup;
 	
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "user_email", referencedColumnName = "email")
 	private User user;
-}
 
+	public StudyGroupMembers() {
+		
+	}
+	
+	public StudyGroupMembers(StudyGroup studyGroup, User user) {
+	    this.studyGroup = studyGroup;
+	    this.user = user;
+	}
+
+	public void setStudyGroup(StudyGroup studyGroup) {
+		// TODO Auto-generated method stub
+		this.studyGroup = studyGroup;
+		
+	}
+	
+	public StudyGroup getStudyGroup() {
+		// TODO Auto-generated method stub
+		return studyGroup;
+		
+	}
+
+	public void setUser(User user) {
+		// TODO Auto-generated method stub
+		this.user = user;
+	}
+	
+
+}

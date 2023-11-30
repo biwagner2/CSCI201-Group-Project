@@ -19,7 +19,7 @@ import java.util.List;
 public class UserProfilePageREST {
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/StudySC";
     private static final String JDBC_USER = "root";
-    private static final String JDBC_PASSWORD = "Song@pegasus2023";
+    private static final String JDBC_PASSWORD = "Bwagner2003.";
 
     @GetMapping("/UserStudyGroupServlet")
     public List<StudyGroup> doGet(@RequestParam("email") String email) {
@@ -68,7 +68,7 @@ public class UserProfilePageREST {
 
         return studyGroups;
     }
-    
+
     @DeleteMapping("/deleteUser/{email}")
     public String deleteUser(@PathVariable String email) {
         try {
@@ -95,7 +95,7 @@ public class UserProfilePageREST {
             return "Error: Unable to delete user.";
         }
     }
-    
+
     @GetMapping("/deleteUserFromGroup/{email}/{coursename}")
     public String deleteUserFromGroup(@PathVariable String email, @PathVariable String coursename) {
         System.out.println("Enter here!");
@@ -121,7 +121,7 @@ public class UserProfilePageREST {
                     deletePs.setString(1, email);
                     deletePs.setString(2, groupId);
                     int deletedRows = deletePs.executeUpdate();
-    
+
                     if (deletedRows > 0) {
                         System.out.println("Deleted user " + email + " from group " + groupId);
                     } else {

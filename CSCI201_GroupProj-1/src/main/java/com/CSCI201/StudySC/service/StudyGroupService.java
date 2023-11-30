@@ -25,35 +25,6 @@ public class StudyGroupService {
 	@Autowired
 	private UserRepository userRepository;
 
-//    public void insertNewStudyGroup(StudyGroup studyGroup) {
-//        Connection conn = null;
-//        PreparedStatement st = null;
-//        try {
-//            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/StudySC?user=root&password=Bwagner2003.");
-//            st = conn.prepareStatement("INSERT INTO StudyGroup (creator_email, coursename, meeting_date, meeting_time_start, capacity, location) VALUES (?, ?, ?, ?, ?, ?, ?)");
-//            st.setString(1, studyGroup.getCreator().getUscEmail());
-//            st.setString(2, studyGroup.getCoursename());
-//            st.setDate(3, new java.sql.Date(studyGroup.getMeetingDate().getTime()));
-//            st.setTime(4, studyGroup.getMeetingTimeStart());
-//            st.setInt(6, studyGroup.getCapacity());
-//            st.setString(7, studyGroup.getLocation());
-//            st.executeUpdate();
-//        } catch (SQLException sqle) {
-//            System.out.println(sqle.getMessage());
-//        } finally {
-//            try {
-//                if (st != null) {
-//                    st.close();
-//                }
-//                if (conn != null) {
-//                    conn.close();
-//                }
-//            } catch (SQLException sqle) {
-//                System.out.println(sqle.getMessage());
-//            }
-//        }
-//    }
-    
     
     public StudyGroup createStudyGroup(StudyGroup studyGroup, User creator) {
     	 //HERE IS WHERE WE ADD THE CREATOR PART OF THE studyGroup. Use the email of the current signed in 
@@ -75,9 +46,13 @@ public class StudyGroupService {
          // Save the study group
          return studyGroupRepository.save(studyGroup);
      }
+
+	public StudyGroup getStudyGroup(Integer groupId) {
+		StudyGroup studyGroup = studyGroupRepository.findByGroupId(groupId);
+		return studyGroup;
+	}
     
    
-    
-    
+     
     
 }

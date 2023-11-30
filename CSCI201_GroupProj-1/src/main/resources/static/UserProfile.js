@@ -124,7 +124,7 @@ function populateStudyGroupContainer(studyGroups) {
 function deleteAccount() {
     // Retrieve the email value using Thymeleaf expression
     var email = document.getElementById("emailValue").textContent;
-
+    console.log("Enter here!");
     // Send a DELETE request to delete the user account with the retrieved email
     fetch('/deleteUser/' + email, {
         method: 'DELETE',
@@ -144,7 +144,7 @@ function deleteAccount() {
 // Delete group
 function deleteGroup(coursename) {
     console.log("enter here");
-	var email = document.getElementById("emailValue").textContent;
+    var email = document.getElementById("emailValue").textContent;
     console.log(email);
     // Send a DELETE request to remove the user from the group with the provided group ID
     // hardcode here
