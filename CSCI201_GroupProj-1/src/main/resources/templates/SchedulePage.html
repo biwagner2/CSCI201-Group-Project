@@ -8,10 +8,16 @@
 </head>
 <body>
   <div class="navbar">
-    <a id="newGroupButton" href="/newStudyGroup">New Group</a>
-    <a id="logoutButton"  href="/">Logout</a>
-    <a id="profileButton" href="/userProfile">Profile</a>
-    <a id="homeButton"  >Home</a>
+    <div class = "LoggedIn" id="LoggedIn">
+      <a id="newGroupButton" href="/newStudyGroup">New Group</a>
+      <a id="logoutButton"  href="/" onclick = "logUserOut()"> Logout</a>
+      <a id="profileButton" href="/userProfile">Profile</a>
+      <a id="homeButton"  >Home</a>
+    </div>
+    <div class = "notLoggedIn" id = "notLoggedIn">    
+      <a id="loginButton"  href="/"> Login Sign Up</a>     
+      <a id="homeButton"  >Home</a>
+    </div>
   </div>
   
   <!-- TODO (Debug): The elements below in "courseContainer" are placeholders. -->

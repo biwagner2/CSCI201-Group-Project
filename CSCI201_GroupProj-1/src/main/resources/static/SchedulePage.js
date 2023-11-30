@@ -1,7 +1,7 @@
 function populateCourseContainer(studyGroups) {
     var courseContainer = document.querySelector(".courseContainer");
     courseContainer.innerHTML = '';
-console.log(studyGroups);
+    console.log(studyGroups);
     const groupedStudyGroups = groupByCoursename(studyGroups);
 
     groupedStudyGroups.forEach((groups, coursename) => {
@@ -28,7 +28,7 @@ console.log(studyGroups);
         var labelDiv = document.createElement("div");
         labelDiv.classList.add("label");
 
-        ["Status", "Location", "Time", "Size"].forEach(function(labelText) {
+        ["Status", "Location", "Time", "Size"].forEach(function (labelText) {
             var label = document.createElement("span");
             label.textContent = labelText;
             labelDiv.appendChild(label);
@@ -40,13 +40,13 @@ console.log(studyGroups);
         detailsDiv.classList.add("details");
 
         groups.forEach(group => {
-		//	console.log(group.groupId);
+            // console.log(group.groupId);
             var groupDetailsDiv = document.createElement("div");
             groupDetailsDiv.classList.add("groupDetails");
-			
-			let statusBar = document.createElement("span");
-			statusBar.textContent = 'available';
-			
+
+            let statusBar = document.createElement("span");
+            statusBar.textContent = 'available';
+
             groupDetailsDiv.innerHTML = `
                 <p>${statusBar.textContent} | ${group.location} - ${group.meetingDate} ${group.meetingTimeStart} | Size: ${group.capacity}</p>
             `;
@@ -54,35 +54,40 @@ console.log(studyGroups);
             var joinBtn = document.createElement("button");
             joinBtn.classList.add("join-btn");
             joinBtn.textContent = "Join";
-            
-            let buttonClicked = false;
-            
-            // Function to handle the button click
-            function handleJoinButtonClick() {
-                if (!buttonClicked) {
-                    let email = getCookie('username'); // THIS NEEDS TO BE FIXED, THE COOKIE ISN'T WORKING RIGHT NOW; YOU HAVE TO MANUALLY SET EMAIL
-                    if (email) {
-                        // Check if the user is in the study group or if the study group is full
-                        makeFetchRequest(group.courseId, email, statusBar);
-                    } else {
-                        console.error('Email not found in cookie');
+            if (getCookie('username')) {
+                joinBtn.style.backgroundColor = 'green';
+
+                let buttonClicked = false;
+
+                // Function to handle the button click
+                function handleJoinButtonClick() {
+                    if (!buttonClicked) {
+                        let email = getCookie('username');
+                        if (email) {
+                            // Check if the user is in the study group or if the study group is full
+                            makeFetchRequest(group.courseId, email, statusBar);
+                        } else {
+                            console.error('Email not found in cookie');
+                        }
+
+                        // Set the button to gray and disable it after the first click
+                        joinBtn.style.backgroundColor = 'dimgray';
+                        joinBtn.style.cursor = 'not-allowed';
+                        joinBtn.textContent = "Joined";
+                        joinBtn.disabled = true;
+
+                        buttonClicked = true;
                     }
-            
-                    // Set the button to gray and disable it after the first click
-                    joinBtn.style.backgroundColor = 'dimgray';
-                    joinBtn.style.cursor = 'not-allowed';
-                    joinBtn.textContent = "Joined";
-                    joinBtn.disabled = true;
-            
-                    buttonClicked = true;
                 }
+
+                // Add the click event listener
+                joinBtn.addEventListener('click', handleJoinButtonClick);
+            } else {
+                joinBtn.style.backgroundColor = 'dimgray';
+                joinBtn.style.cursor = 'not-allowed';
+                joinBtn.textContent = "Join";
+                joinBtn.disabled = true;
             }
-            
-            // Set the initial style to green
-            joinBtn.style.backgroundColor = 'green';
-            
-            // Add the click event listener
-            joinBtn.addEventListener('click', handleJoinButtonClick);
 
             groupDetailsDiv.appendChild(joinBtn);
             detailsDiv.appendChild(groupDetailsDiv);
@@ -93,12 +98,14 @@ console.log(studyGroups);
     });
 }
 
+function logUserOut() {
+    document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
+
 function groupByCoursename(studyGroups) {
     const groupedStudyGroups = new Map();
 
     studyGroups.forEach(group => {
-		
-		//console.log(group);
         const coursename = group.coursename;
 
         if (!groupedStudyGroups.has(coursename)) {
@@ -117,8 +124,6 @@ function getCookie(name) {
     return cookie ? cookie.split('=')[1] : null;
 }
 
-
-
 function makeFetchRequest(courseId, email, statusBar) {
     const requestData = {
         courseId: courseId,
@@ -131,34 +136,40 @@ function makeFetchRequest(courseId, email, statusBar) {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
     })
-    .then(response => {
-        if (!response.ok) {
-            console.error('Server responded with status:', response.status);
-            throw new Error('Network response was not ok');
-        }
-        return response.text();
-    })
-    .then(text => {
-        
-        if (text.startsWith("Failed")) {
-            statusBar.textContent = 'Joined Already';
-            
-        } else {
-            statusBar.textContent = 'Joined';
-        }
-        console.log('Response text:', text);
-    })
-    .catch((error) => {
-        console.error('Fetch error:', error);
-        window.alert('Error joining study group');
-    });
+        .then(response => {
+            if (!response.ok) {
+                console.error('Server responded with status:', response.status);
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(text => {
+            if (text.startsWith("Failed")) {
+                statusBar.textContent = 'Joined Already';
+                window.alert('joined previously');
+            } else {
+                statusBar.textContent = 'Joined';
+            }
+            console.log('Response text:', text);
+        })
+        .catch((error) => {
+            console.error('Fetch error:', error);
+            window.alert('hey error');
+        });
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    const loggedIn = document.getElementById('LoggedIn');
+    const NotloggedIn = document.getElementById('notLoggedIn');
+    const userEmail = getCookie("username");
+    if (userEmail) {
+        NotloggedIn.style.display = 'none';
+        loggedIn.style.display = 'block';
+    } else {
+        NotloggedIn.style.display = 'block';
+        loggedIn.style.display = 'none';
+    }
 
-
-
-
-document.addEventListener('DOMContentLoaded', function() {
     fetch('SchedulePageServlet')
         .then(response => response.json())
         .then(data => {
