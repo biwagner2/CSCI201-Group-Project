@@ -53,7 +53,7 @@ function populateCourseContainer(studyGroups) {
             var joinBtn = document.createElement("button");
             joinBtn.classList.add("join-btn");
             joinBtn.textContent = "Join";
-            if (getCookie('username')) {
+            if (sessionStorage.getItem('loggedInUser')) {
                 joinBtn.style.backgroundColor = 'green';
 
                 let buttonClicked = false;
@@ -61,7 +61,7 @@ function populateCourseContainer(studyGroups) {
                 // Function to handle the button click
                 function handleJoinButtonClick() {
                     if (!buttonClicked) {
-                        let email = getCookie('username');
+                        let email = sessionStorage.getItem('loggedInUser');
                         if (email) {
                             // Check if the user is in the study group or if the study group is full
                             makeFetchRequest(group.courseId, email, statusBar, groupDetailsDiv ,group );
@@ -101,7 +101,7 @@ function populateCourseContainer(studyGroups) {
 }
 
 function logUserOut() {
-    document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    sessionStorage.removeItem('loggedInUser');
 }
 
 function groupByCoursename(studyGroups) {
@@ -181,8 +181,10 @@ function makeFetchRequest(courseId, email, statusBar, groupDetailsDiv, group) {
 document.addEventListener('DOMContentLoaded', function () {
     const loggedIn = document.getElementById('LoggedIn');
     const NotloggedIn = document.getElementById('notLoggedIn');
-    const userEmail = getCookie("username");
+    const userEmail = sessionStorage.getItem('loggedInUser');
+    
     if (userEmail) {
+        sessionStorage.setItem('loggedInUser', userEmail);
         NotloggedIn.style.display = 'none';
         loggedIn.style.display = 'block';
     } else {
@@ -190,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function () {
         loggedIn.style.display = 'none';
     }
 
-    fetch('SchedulePageServlet')
+    fetch('/SchedulePageServlet')
         .then(response => response.json())
         .then(data => {
             populateCourseContainer(data);

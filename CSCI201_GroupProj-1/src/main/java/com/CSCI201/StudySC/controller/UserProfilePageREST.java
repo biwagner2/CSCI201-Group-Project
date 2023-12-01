@@ -1,11 +1,15 @@
 package com.CSCI201.StudySC.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.CSCI201.StudySC.Repository.UserRepository;
 import com.CSCI201.StudySC.model.StudyGroup;
+import com.CSCI201.StudySC.model.User;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,7 +23,7 @@ import java.util.List;
 public class UserProfilePageREST {
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/StudySC";
     private static final String JDBC_USER = "root";
-    private static final String JDBC_PASSWORD = "Bwagner2003.";
+    private static final String JDBC_PASSWORD = "Daniel7504!";
 
     @GetMapping("/UserStudyGroupServlet")
     public List<StudyGroup> doGet(@RequestParam("email") String email) {
@@ -180,5 +184,14 @@ public class UserProfilePageREST {
             return "Error: Unable to delete user from group.";
         }
         return "Exit From The Study Group Successfully";
+    }
+
+    @Autowired
+    UserRepository userRepo;
+
+    @GetMapping ("/getUserName")
+    public String getUserNameFromEmail(String email){
+        User user = userRepo.findByEmail(email);
+        return user.getName();
     }
 }

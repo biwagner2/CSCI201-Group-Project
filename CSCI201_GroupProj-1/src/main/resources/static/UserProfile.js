@@ -82,17 +82,46 @@ function addCourse() {
 
 // Populate study groups
 document.addEventListener('DOMContentLoaded', function () {
-    // Fetch study groups from the servlet
-    var email = document.getElementById("emailValue").textContent;
+    // Fetch study groups from the servlet 
+
+    var email = sessionStorage.getItem('loggedInUser');
+
+    fetch('/getUserName?email=' +  email)
+    .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.text(); // Assuming the response is plain text
+      })
+      .then(userName => {
+        // Handle the user name as needed
+        console.log(`User Name: ${userName}`);
+        document.getElementById('fullName').innerText = userName;
+      })
+      .catch(error => {
+        console.error('Fetch error:', error);
+      });
+
+    
+
     fetch('UserStudyGroupServlet?email=' +  email)
         .then(response => response.json())
         .then(data => {
             // Populate the courseContainer div with study group information
             populateStudyGroupContainer(data);
+            console.log(email);
         })
         .catch(error => {
             console.error('Error fetching data:', error);
         });
+
+        
+
+        // Check if the storedEmail exists and update the Thymeleaf value
+        if (email) {
+            document.getElementById('emailValue').innerText = email;
+        }
+    
 });
 
 function populateStudyGroupContainer(studyGroups) {

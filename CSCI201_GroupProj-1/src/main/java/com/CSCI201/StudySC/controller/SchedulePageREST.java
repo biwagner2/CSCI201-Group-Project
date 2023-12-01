@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.CSCI201.StudySC.Repository.StudyGroupMembersRepository;
+import com.CSCI201.StudySC.Repository.StudyGroupRepository;
 import com.CSCI201.StudySC.Repository.UserRepository;
 import com.CSCI201.StudySC.model.StudyGroup;
 import com.CSCI201.StudySC.service.StudyGroupMembersService;
@@ -22,6 +23,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 @RestController
 public class SchedulePageREST {
@@ -29,43 +31,36 @@ public class SchedulePageREST {
     private static final long serialVersionUID = 1L;
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/StudySC";
     private static final String JDBC_USER = "root";
-    private static final String JDBC_PASSWORD = "Bwagner2003.";
+    private static final String JDBC_PASSWORD = "Daniel7504!";
  
+    @Autowired
+    private StudyGroupRepository studyGroupRepository;
+
+
     @GetMapping("/SchedulePageServlet")
     public List<StudyGroup> doGet() {
-    		List<StudyGroup> studyGroups = new ArrayList<>();
+        List<StudyGroup> studyGroups = new ArrayList<>();
+        List<StudyGroup> newStudyGroups = new ArrayList<>();
+        System.out.println("made it to get function");
+        //return studyGroups;
+        studyGroups = studyGroupRepository.findAll();
+        for (int i = 0; i < studyGroups.size(); i++){
+            StudyGroup ourGroup = studyGroups.get(i);
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return null; // Consider handling this better
+            StudyGroup studyGroup = new StudyGroup(null,
+            ourGroup.getCoursename(), ourGroup.getMeetingDate(), ourGroup.getMeetingTimeStart(), ourGroup.getCapacity(),
+            ourGroup.getLocation());
+            studyGroup.setCourseId(i+1);
+
+            newStudyGroups.add(studyGroup);
         }
+        
+       
+        return newStudyGroups;
 
-        String query = "SELECT * FROM StudySC.study_group";
-
-        try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
-             PreparedStatement ps = conn.prepareStatement(query);
-             ResultSet rs = ps.executeQuery()) {
-
-            while (rs.next()) {
-                StudyGroup studyGroup = new StudyGroup(null,
-                        rs.getString("coursename"),
-                        rs.getString("meeting_date"), rs.getString("meeting_time_start"), rs.getInt("capacity"),
-                        rs.getString("location"));
-                studyGroup.setCourseId(rs.getInt("group_id"));
-                
-                studyGroups.add(studyGroup);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // Consider a better way to handle this exception
-            return null;
-        }
-
-        return studyGroups;
     }
-    
-    
+
+   
     
     @Autowired
     private StudyGroupMembersService studyGroupMembersService;

@@ -1,6 +1,8 @@
 package com.CSCI201.StudySC.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
 
@@ -48,7 +50,7 @@ public class RegisterController {
     
     // Authenticate user
     @PostMapping("/login")
-    public String loginUser(@RequestParam String email, @RequestParam String password, Model model, HttpServletResponse response) {
+    public ResponseEntity<String> loginUser(@RequestParam String email, @RequestParam String password, Model model, HttpServletResponse response) {
     	// Validate the user credentials against the database
         User user = userService.getUserByEmail(email);
 
@@ -58,21 +60,13 @@ public class RegisterController {
             model.addAttribute("email", currUser.getUscEmail());
             
             // Set the cookie (key: username, value: user's email)
-            Cookie userCookie = new Cookie("username", String.valueOf(email));
-            System.out.println("String value of: " + String.valueOf(email));
+           
             
-            // Cookie expires after 1 hour (1 hr = 3600 seconds)
-            userCookie.setMaxAge(3600);
-            
-            // Make cookie visible for all pages
-            userCookie.setPath("/");
-            response.addCookie(userCookie);
-            System.out.println("Cookie was set in controller.");
-            return "SchedulePage";
+            return ResponseEntity.ok("Login successful");
         } else {
             // Handle invalid login
         	model.addAttribute("errorMessage", "Email and password don't match. Please try again");
-            return "login.html";
+            return ResponseEntity.ok("Bad Login");
         }
     }
 
@@ -95,20 +89,20 @@ public class RegisterController {
     @GetMapping("/schedule")
     public String showSchedulePage(HttpServletResponse response) {
     	
-    	// Get user email
-    	String email = currUser.getUscEmail();
+    	//Get user email
+    	// String email = currUser.getUscEmail();
     	
-    	// Set a cookie (key: username, value: user's email)
-        Cookie userCookie = new Cookie("username", String.valueOf(email));
-        System.out.println("String value of: " + String.valueOf(email));
+    	// // Set a cookie (key: username, value: user's email)
+        // Cookie userCookie = new Cookie("username", String.valueOf(email));
+        // System.out.println("String value of: " + String.valueOf(email));
         
-        // Cookie expires after 1 hour (1 hr = 3600 seconds)
-        userCookie.setMaxAge(3600);
+        // // Cookie expires after 1 hour (1 hr = 3600 seconds)
+        // userCookie.setMaxAge(3600);
         
-        // Make cookie visible for all pages
-        userCookie.setPath("/");
-        response.addCookie(userCookie);
-        System.out.println("Cookie was set in controller.");
+        // // Make cookie visible for all pages
+        // userCookie.setPath("/");
+        // response.addCookie(userCookie);
+        // System.out.println("Cookie was set in controller.");
        
         return "SchedulePage";
     }
@@ -161,21 +155,10 @@ public class RegisterController {
     	
     	return "SchedulePage";
     }
-        
-    
-    
+           
     //SHOULD LOOK INTO USING JPA and Hibernate Annotations so we don't need to use JDBC calls!!!
     
     //On register page (AKA CreateAccount.html) when user clicks Register
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
 }
