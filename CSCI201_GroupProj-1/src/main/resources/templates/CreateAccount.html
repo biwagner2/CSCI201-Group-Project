@@ -8,10 +8,15 @@
 	<script>
 		function validateEmail()
 		{
+
+			
+
 			var email = document.getElementById('uscEmail').value;
 			if(email.endsWith("@usc.edu"))
 			{
+				sessionStorage.setItem('loggedInUser', email);
 				return true;
+				
 			}
 			else
 				alert("Email must end with @usc.edu");
